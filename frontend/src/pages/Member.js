@@ -12,13 +12,13 @@ class Member extends Component {
 
 	componentDidMount() {
 		fetch('api/members').then(response => response.json())
-			.then(data => this.setState({ members: data}));
+			.then(data => this.setState({ members: data._embedded.members}));
 	}
 
 	render() {
 		const { members } = this.state;
 
-		const memberList = members.map(member => {
+		const memberList = members&&members.map(member => {
 			return <tr key={member.mid}>
                 <td>{member.email}</td>
                 <td>{member.password}</td>
