@@ -18,6 +18,4 @@ public class StaffRepository {
 	  		+ "VALUES (?,?,?,?,NOW())",staffModel.getPassword(), staffModel.getEmail(),
 	  		staffModel.getPosition(),staffModel.getPhone());
   }
-
-
 }

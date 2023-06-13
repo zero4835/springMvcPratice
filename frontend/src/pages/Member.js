@@ -12,7 +12,14 @@ class Member extends Component {
 
 	componentDidMount() {
 		fetch('api/members').then(response => response.json())
-			.then(data => this.setState({ members: data._embedded.members}));
+			.then(data => {
+				this.setState({ members: data._embedded.members});
+				setTimeout(() =>{console.log(this.state.members)}, 1000);
+			})
+			.catch(e => {
+				/*發生錯誤時要做的事情*/
+				console.log(e);
+			})
 	}
 
 	render() {
