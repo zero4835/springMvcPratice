@@ -33,4 +33,14 @@ public class Certificate {
 	@NonNull
 	private Company company;
 
+	@Override
+	public String toString() {
+		return "certificate{" +
+			"id=" + certificateId +
+			", name='" + name + '\'' +
+			", skill='" + skill + '\'' +
+			", company='" + company + '\'' +
+			'}';
+	}
+
 }

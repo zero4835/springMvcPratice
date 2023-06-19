@@ -27,13 +27,12 @@ class Certificate extends Component{
 
     render() {
         const { certificates } = this.state;
-        console.log(certificates);
         const certificateList = certificates&&certificates.map(certificate => {
-            return <tr key={certificate.certificateId}>
-                <td>{certificate.name}</td>
-                <td>{certificate.skill.name}</td>
-                <td>{certificate.company.name}</td>
-            </tr>
+            return (
+                <tr key={certificate.certificateId}>
+                    <td>{certificate.name}</td>
+                </tr>
+            )
         });
         return (
             <div>

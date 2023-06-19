@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import com.ecommerce.backend.service.CertificateService;
 import jakarta.validation.Valid;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api")
 public class CertificateController {
 
@@ -27,13 +29,15 @@ public class CertificateController {
     @Autowired
     private CertificateService certificateSevices;
     
+
     @GetMapping("/certificates")
     public Collection<Certificate> certificates(){
         return certificateRepository.findAll();
     }
 
     @PostMapping("/certificates")
-    public ResponseEntity<Certificate> creatCertificate(@Valid @RequestBody Certificate certificate) throws Exception {
+    public ResponseEntity<Certificate> creatCertificate(@Valid @RequestBody Certificate certificate) 
+    throws Exception {
         certificate.setCertificateId(UUID.randomUUID().toString().replaceAll("-", ""));
         Certificate result = certificateSevices.saveCertificate(certificate);
         return ResponseEntity.ok().body(result);

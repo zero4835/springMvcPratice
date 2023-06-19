@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"com.ecommerce.backend","com.ecommerce.backend.model","com.ecommerce.backend.controller","com.ecommerce.backend.service","com.ecommerce.backend.repository"})
-@EntityScan({"com.ecommerce.backend","com.ecommerce.backend.model","com.ecommerce.backend.controller","com.ecommerce.backend.service","com.ecommerce.backend.repository"})
+@ComponentScan({"com.ecommerce.backend","com.ecommerce.backend.model","com.ecommerce.backend.controller","com.ecommerce.backend.service","com.ecommerce.backend.repository","com.ecommerce.backend.serviceimpl"})
+@EntityScan({"com.ecommerce.backend","com.ecommerce.backend.model","com.ecommerce.backend.controller","com.ecommerce.backend.service","com.ecommerce.backend.repository","com.ecommerce.backend.serviceimpl"})
 public class BackendApplication {
 
 	public static void main(String[] args) {
