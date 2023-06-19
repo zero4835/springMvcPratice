@@ -18,9 +18,11 @@ public class Vendor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "vendor_id", unique = true, nullable = false)
-	private Long vendorId;
+	private String vendorId;
 	@NonNull
 	@Column(name = "name", unique = true, nullable = false, length = 50)
 	private String name;
+	public void setVendorId(String replaceAll) {
+	}
 
 }

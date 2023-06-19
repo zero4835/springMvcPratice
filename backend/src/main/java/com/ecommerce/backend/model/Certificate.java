@@ -20,16 +20,16 @@ public class Certificate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "certificate_id", unique = true, nullable = false)
-	private Long certificateId;
+	private String certificateId;
 	@NonNull
 	@Column(name = "name", unique = true, nullable = false, length = 50)
 	private String name;
 	@ManyToOne
-	@JoinColumn(name = "skill_id")
+	@JoinColumn(name = "skill_id", nullable = false)
 	@NonNull
 	private Skill skill;
 	@ManyToOne
-	@JoinColumn(name = "company_id")
+	@JoinColumn(name = "company_id", nullable = false)
 	@NonNull
 	private Company company;
 
