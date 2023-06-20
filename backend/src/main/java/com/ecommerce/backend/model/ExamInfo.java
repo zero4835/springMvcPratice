@@ -22,7 +22,7 @@ public class ExamInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "exam_id", unique = true, nullable = false)
-	private Long examId;
+	private String examId;
 	@ManyToOne
 	@JoinColumn(name = "certificate_id")
 	@NonNull

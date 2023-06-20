@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Table} from 'reactstrap';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
-import MyNavbar from '../components/MyNavbar';
 
 class Member extends Component {
 
@@ -36,7 +35,6 @@ class Member extends Component {
 
 		return (
 			<div>
-				<MyNavbar />
 				<Container fluid>
 					<h3>Member</h3>
 					<Table className="mt-4">

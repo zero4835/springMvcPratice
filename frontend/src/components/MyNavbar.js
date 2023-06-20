@@ -48,22 +48,22 @@ class MyNavbar extends Component {
                 <Collapse isOpen={!this.state.collapse} navbar>
                     <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="/">é¦????</NavLink>
+                                <NavLink href="/">Home</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/members">?????¡ä¸­å¿?</NavLink>
+                                <NavLink href="/members">Members</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/certificates">è­???§è??è¨?</NavLink>
+                                <NavLink href="/certificates">Certificates</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/vendors">???è¾¦å?®ä??</NavLink>
+                                <NavLink href="/vendors">Vendors</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="https://ithelp.ithome.com.tw/users/20119510/articles">?????¼æ??</NavLink>
+                                <NavLink href="https://ithelp.ithome.com.tw/users/20119510/articles">IThelp</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="https://github.com/AidenYang12345">GitHub</NavLink>
+                                <NavLink href="https://github.com/zero4835/springMvcPratice">GitHub</NavLink>
                             </NavItem>
                     </Nav>
                 </Collapse>

@@ -75,7 +75,6 @@ class MyCarousel extends Component{
             return (
                 <CarouselItem
                     className="custom-tag"
-                    key={item.id}
                     onExiting={this.onExiting}
                     onExited={this.onExited}>
                     <img style={{ width: 1200, height: 300 }} src={item.src} alt={item.altText} />
