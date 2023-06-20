@@ -48,19 +48,19 @@ class MyNavbar extends Component {
                 <Collapse isOpen={!this.state.collapse} navbar>
                     <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="/">È¶ñÈ†Å</NavLink>
+                                <NavLink href="/">È¶????</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/members">ÊúÉÂì°‰∏≠ÂøÉ</NavLink>
+                                <NavLink href="/members">?????°‰∏≠Âø?</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/certificates">Ë≠âÁÖßË≥áË®ä</NavLink>
+                                <NavLink href="/certificates">Ë≠???ßË??Ë®?</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/vendors">ÂçîËæ¶ÂñÆ‰Ωç</NavLink>
+                                <NavLink href="/vendors">???Ëæ¶Â?Æ‰??</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="https://ithelp.ithome.com.tw/users/20119510/articles">ÈóúÊñºÊàë</NavLink>
+                                <NavLink href="https://ithelp.ithome.com.tw/users/20119510/articles">?????ºÊ??</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink href="https://github.com/AidenYang12345">GitHub</NavLink>
