@@ -2,7 +2,6 @@ package com.ecommerce.backend.model;
 
 import java.sql.Date;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,23 +18,20 @@ import lombok.*;
 @Table(name = "exam_info")
 public class ExamInfo {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "exam_id", unique = true, nullable = false)
-	private String examId;
-	@ManyToOne
-	@JoinColumn(name = "certificate_id")
-	@NonNull
-	private Certificate certificate;
-	@ManyToOne
-	@JoinColumn(name = "vendor_id")
-	@NonNull
-	private Vendor vendor;
-	@NonNull
-	@Column(name = "exam_date")
-	private Date examDate;
-	@NonNull
-	@Column(name = "publish_date")
-	private Date publishDate;
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String examId;
+    @ManyToOne
+    @JoinColumn(name = "certificate_id")
+    @NonNull
+    private Certificate certificate;
+    @ManyToOne
+    @JoinColumn(name = "vendor_id")
+    @NonNull
+    private Vendor vendor;
+    @NonNull
+    private Date examDate;
+    @NonNull
+    private Date publishDate;
+    
 }

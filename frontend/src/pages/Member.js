@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Container, Table} from 'reactstrap';
-import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 
 class Member extends Component {
 

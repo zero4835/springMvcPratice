@@ -74,6 +74,7 @@ class MyCarousel extends Component{
         const slides = items.map(item => {
             return (
                 <CarouselItem
+                    key={items.id}
                     className="custom-tag"
                     onExiting={this.onExiting}
                     onExited={this.onExited}>

@@ -10,6 +10,7 @@ class Home extends Component {
         return (
             <>
                 <MyCarousel/>
+                <Mycard/>
             </>   
         );
     }

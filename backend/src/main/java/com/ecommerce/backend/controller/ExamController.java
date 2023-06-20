@@ -16,17 +16,16 @@ import com.ecommerce.backend.repository.ExamInfoRepository;
 import com.ecommerce.backend.service.ExamService;
 
 import jakarta.validation.Valid;
-
-@RestController
 @CrossOrigin("*")
+@RestController
 @RequestMapping("/api")
-public class ExamInfoController{
+public class ExamController {
 
     @Autowired
     private ExamInfoRepository examInfoRepository;
-    
+
     @Autowired
-    private ExamService examInfoService;
+    private ExamService examService;
 
     @GetMapping("/exams")
     public Collection<ExamInfo> exams() {
@@ -36,7 +35,8 @@ public class ExamInfoController{
     @PostMapping("/exams")
     public ResponseEntity<ExamInfo> createExam(@Valid @RequestBody ExamInfo examInfo) 
     throws Exception {
-        ExamInfo result = examInfoService.saveExam(examInfo);
+        ExamInfo result = examService.saveExam(examInfo);
         return ResponseEntity.ok().body(result);
     }
+
 }

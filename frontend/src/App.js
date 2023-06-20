@@ -5,6 +5,8 @@ import Certificate from './pages/Certificate';
 import Vendor from './pages/Vendor';
 import Home from './pages/Home';
 import MyNavbar from './components/MyNavbar';
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
+
 
 import {
   Route,
