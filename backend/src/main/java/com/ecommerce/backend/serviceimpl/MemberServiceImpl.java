@@ -18,8 +18,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member saveMember(Member member) {
-        member.setMid(UUID.randomUUID().toString().replaceAll("-", ""));
-        member.setCreateTime((java.sql.Date) new Date());
         memberRepository.save(member);
         return member;
     }
