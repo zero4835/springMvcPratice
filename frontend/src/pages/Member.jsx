@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import {Container, Table} from 'reactstrap';
+import { Button, ButtonGroup,ButtonToggle,Container, Table} from 'reactstrap';
+import { Link } from 'react-router-dom';
+import '../../node_modules/bootstrap/dist/css/bootstrap.css'
+
 
 class Member extends Component {
 
@@ -35,6 +38,9 @@ class Member extends Component {
 		return (
 			<div>
 				<Container fluid>
+					<div className="d-flex mt-3 mb-2 justify-content-center ">
+						<Button color="success" tag={Link} to="/members/new">Add Member</Button>
+                    </div>
 					<h3>Member</h3>
 					<Table className="mt-4">
 						<thead>

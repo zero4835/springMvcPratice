@@ -8,12 +8,6 @@ import {
     NavItem,
     NavLink
 } from 'reactstrap';
-import {
-    BrowserRouter,
-    Route,
-    Routes,
-    Link
-} from 'react-router-dom';
 import logo from '../logo.svg';
 
 class MyNavbar extends Component {
@@ -33,7 +27,7 @@ class MyNavbar extends Component {
 
     render() {
         return (
-            <Navbar color="dark" dark>
+            <Navbar className="p-1" color="dark" dark>
                 <NavbarBrand href="/" className="mr-auto">
                     <img
                         alt=""
@@ -44,7 +38,7 @@ class MyNavbar extends Component {
                     />
                     {' Meteor'}
                 </NavbarBrand>
-                <NavbarToggler onClick={this.toogleNavbar} className="mr-2"/>
+                <NavbarToggler onClick={this.toogleNavbar} className="mr-2 mb-1 mt-1"/>
                 <Collapse isOpen={!this.state.collapse} navbar>
                     <Nav className="ml-auto" navbar>
                             <NavItem>
@@ -52,6 +46,9 @@ class MyNavbar extends Component {
                             </NavItem>
                             <NavItem>
                                 <NavLink href="/members">Members</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="/skilltree">SkillTree</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink href="/certificates">Certificates</NavLink>
