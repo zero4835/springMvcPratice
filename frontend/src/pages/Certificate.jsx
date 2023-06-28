@@ -16,7 +16,7 @@ class Certificate extends Component{
     componentDidMount(){
         fetch('api/certificates').then(response=>response.json())
         .then(data  =>{
-            this.setState({certificates:data._embedded.certificates});
+            this.setState({certificates:data});
             setTimeout(() =>{console.log(this.state.certificates)}, 1000);
         })
         .catch(e => {

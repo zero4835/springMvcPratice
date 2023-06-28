@@ -45,9 +45,9 @@ class AddMember extends Component {
             if(response.status === 201){
                 alert("Success");
                 const navigate = useNavigate();
-                navigate('members');
+                navigate('/members');
             }else{
-                alert("Failure"+response.status);
+                alert("Failure "+response.status);
             }
         })
         .catch(e=>console.log(e));

@@ -29,6 +29,7 @@ function App(){
           <Route path="/certificates" element={<Certificate/>}></Route>
           <Route path="/vendors" element={<Vendor/>}></Route>
           <Route path="/test" element={<Test/>}></Route>
+
         </Routes>
       </div>
     );

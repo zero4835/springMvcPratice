@@ -44,7 +44,7 @@ class MyNavbar extends Component {
                         <LoginPopup />
                     </NavItem>
                 </Nav>
-                <NavbarToggler onClick={this.toogleNavbar} className="mr-2 mb-1 mt-1"/>
+                <NavbarToggler onClick={this.toogleNavbar} className="mr-2 mb-1 mt-1 ms-3"/>
                 <Collapse isOpen={!this.state.collapse} navbar>
                     <Nav className="ml-auto" navbar>
                             <NavItem>

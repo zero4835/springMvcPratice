@@ -26,47 +26,60 @@ import com.ecommerce.backend.model.Member;
 
 @RestController
 @CrossOrigin("*")
-public class MemberController {
+public class UserController {
 
     @Autowired
     private MemberRepository memberRepository;
     @Autowired
     private MemberService memberService;
 
-    @GetMapping("/members")
+    @GetMapping("/users")
     public List<Member> members() {
         return memberRepository.findAll();
     }
 
-    @GetMapping("/member/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<?> getMember(@PathVariable Long id) {
         Optional<Member> member = memberRepository.findById(id);
         return member.map(response -> ResponseEntity.ok().body(response))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/members")
+    @PostMapping("/users")
     public ResponseEntity<Member> createMember(@Valid @RequestBody Member member) throws Exception {
         Member result = memberService.saveMember(member);
         return ResponseEntity.ok().body(result);
     }
 
-    @PutMapping("/member/{id}")
+    @PutMapping("/user/{id}")
     public ResponseEntity<Member> updateMember(@Valid @RequestBody Member member) {
         Member result = memberRepository.save(member);
         return ResponseEntity.ok().body(result);
     }
 
-    @DeleteMapping("/member/{id}")
+    @DeleteMapping("/user/{id}")
     public ResponseEntity<?> deleteMember(@PathVariable Long id){
         memberRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
     
-    @PostMapping("/tests")
+    @PostMapping("/test")
     public ResponseEntity<Member> test(@Valid @RequestBody Member member) throws Exception {
         Member result = memberService.saveMember(member);
         return ResponseEntity.ok().body(result);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@Valid @RequestBody Member member) 
+    throws Exception {
+        Member userAccount = memberService.getMemberbyEmail(member.getEmail());
+        if (userAccount == null) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        } else if (userAccount.getPassword().equals(member.getPassword())) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Wrong password", HttpStatus.FORBIDDEN);
+        }
     }
 
 

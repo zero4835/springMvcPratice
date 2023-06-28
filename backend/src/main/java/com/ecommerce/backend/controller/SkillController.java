@@ -19,7 +19,6 @@ import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api")
 public class SkillController {
     @Autowired
     private SkillRepository skillRepository;
@@ -30,8 +29,7 @@ public class SkillController {
     public Collection<Skill> skills() {
         return skillRepository.findAll();
     }
-
-
+    
     @PostMapping("/skills")
     public ResponseEntity<Skill> createSkill(@Valid @RequestBody Skill skill) 
     throws Exception {

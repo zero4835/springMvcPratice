@@ -20,7 +20,6 @@ import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api")
 public class CertificateController {
 
     @Autowired

@@ -13,7 +13,7 @@ class Vendor extends Component {
     componentDidMount() {
         fetch('/api/vendors').then(response => response.json())
         .then(data  =>{
-            this.setState({vendors:data._embedded.vendors});
+            this.setState({vendors:data});
             setTimeout(() =>{console.log(this.state.vendors)}, 1000);
         })
         .catch(e => {

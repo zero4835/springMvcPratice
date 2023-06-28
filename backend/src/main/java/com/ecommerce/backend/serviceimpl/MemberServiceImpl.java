@@ -1,8 +1,5 @@
 package com.ecommerce.backend.serviceimpl;
 
-import java.util.Date;
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +17,11 @@ public class MemberServiceImpl implements MemberService {
     public Member saveMember(Member member) {
         memberRepository.save(member);
         return member;
+    }
+
+    @Override
+    public Member getMemberbyEmail(String email) {
+        return memberRepository.findByEmail(email);
     }
 
 }

@@ -14,7 +14,7 @@ class Member extends Component {
 	componentDidMount() {
 		fetch('api/members').then(response => response.json())
 			.then(data => {
-				this.setState({ members: data._embedded.members});
+				this.setState({ members: data});
 				setTimeout(() =>{console.log(this.state.members)}, 1000);
 			})
 			.catch(e => {

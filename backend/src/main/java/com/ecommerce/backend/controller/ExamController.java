@@ -18,7 +18,6 @@ import com.ecommerce.backend.service.ExamService;
 import jakarta.validation.Valid;
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api")
 public class ExamController {
 
     @Autowired

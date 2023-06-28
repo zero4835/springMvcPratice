@@ -11,7 +11,7 @@ class SkillTree extends Component {
     componentDidMount() {
         fetch('api/skills').then(response => response.json())
             .then(data => {
-                this.setState({ skills: data._embedded.skills});
+                this.setState({ skills: data});
                 console.log(this.state.skills);
             })
             .catch(e => (console.log(e)));

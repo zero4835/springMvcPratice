@@ -5,5 +5,6 @@ import com.ecommerce.backend.model.Member;
 public interface MemberService {
 
     public Member saveMember(Member member);
+    public Member getMemberbyEmail(String email);
 
 }
