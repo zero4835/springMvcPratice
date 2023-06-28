@@ -9,6 +9,7 @@ import {
     NavLink
 } from 'reactstrap';
 import logo from '../logo.svg';
+import LoginPopup from './LoginPopup';
 
 class MyNavbar extends Component {
     constructor(props) {
@@ -38,6 +39,11 @@ class MyNavbar extends Component {
                     />
                     {' Meteor'}
                 </NavbarBrand>
+                <Nav className="ms-auto" navbar>
+                    <NavItem>
+                        <LoginPopup />
+                    </NavItem>
+                </Nav>
                 <NavbarToggler onClick={this.toogleNavbar} className="mr-2 mb-1 mt-1"/>
                 <Collapse isOpen={!this.state.collapse} navbar>
                     <Nav className="ml-auto" navbar>

@@ -22,7 +22,7 @@ public class Member {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "mid", unique = true, nullable = false, length = 50)
 	private Integer mid;
-	@NonNull
+	@NonNull 
     @NotEmpty
 	@Column(name = "email", unique = true, nullable = false, length = 50)
 	private String email;
