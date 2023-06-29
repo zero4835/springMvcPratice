@@ -18,9 +18,9 @@ import lombok.*;
 public class Certificate {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "certificate_id", unique = true, nullable = false)
-	private String certificateId;
+	private Integer certificateId;
 	@NonNull
 	@Column(name = "name", unique = true, nullable = false, length = 50)
 	private String name;

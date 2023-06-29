@@ -16,9 +16,9 @@ import lombok.*;
 public class Skill {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "skill_id", unique = true, nullable = false)
-	private String skillId;
+	private Integer skillId;
 	@NonNull
 	@Column(name = "name", nullable = false, length = 50)
 	private String name;

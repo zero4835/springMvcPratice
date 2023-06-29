@@ -15,19 +15,19 @@ const items = [
         id: 1,
         src:require("../img/7mXlKog.jpg"),
         altText: 'Slide 1',
-        caption: 'Slide A'
+        caption: ''
     },
     {
         id: 2,
         src:require("../img/58767754_p0.jpg"),
         altText: 'Slide 2',
-        caption: 'Slide 2'
+        caption: ''
     },
     {
         id: 3,
         src:require("../img/86110106_p0.jpg"),
         altText: 'Slide 3',
-        caption: 'Slide 3'
+        caption: ''
     }
 ];
 

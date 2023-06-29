@@ -1,6 +1,7 @@
 package com.ecommerce.backend.serviceimpl;
 
 import java.util.UUID;
+import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,9 @@ public class ExamServiceImpl implements ExamService{
 
     @Override
     public ExamInfo saveExam(ExamInfo examInfo) {
-        examInfo.setExamId(UUID.randomUUID().toString().replaceAll("-", ""));
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        examInfo.setExamDate(sqlDate);
         examInfoRepository.save(examInfo);
         return examInfo;
     }

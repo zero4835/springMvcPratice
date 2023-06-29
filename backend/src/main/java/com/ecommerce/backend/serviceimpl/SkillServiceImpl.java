@@ -18,7 +18,6 @@ public class SkillServiceImpl  implements SkillService{
 
     @Override
     public Skill saveSkill(Skill skill) {
-        skill.setSkillId(UUID.randomUUID().toString().replaceAll("-", ""));
         skillRepository.save(skill);
         return skill;
     }

@@ -37,7 +37,6 @@ public class CertificateController {
     @PostMapping("/certificates")
     public ResponseEntity<Certificate> creatCertificate(@Valid @RequestBody Certificate certificate) 
     throws Exception {
-        certificate.setCertificateId(UUID.randomUUID().toString().replaceAll("-", ""));
         Certificate result = certificateSevices.saveCertificate(certificate);
         return ResponseEntity.ok().body(result);
     }

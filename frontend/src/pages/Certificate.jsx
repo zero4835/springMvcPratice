@@ -31,12 +31,14 @@ class Certificate extends Component{
             return (
                 <tr key={certificate.certificateId}>
                     <td>{certificate.name}</td>
+                    <td>{certificate.skill && certificate.skill.name}</td>
+                    <td>{certificate.company && certificate.company.name}</td>
                 </tr>
             )
         });
         return (
             <div>
-                <Container fluid>
+                <Container fluid className="my-2">
                     <h3>Certificate</h3>
                     <Table className="mt-3">
                         <thead>

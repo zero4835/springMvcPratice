@@ -2,6 +2,7 @@ package com.ecommerce.backend.model;
 
 import java.sql.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,8 +20,9 @@ import lombok.*;
 public class ExamInfo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String examId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "exam_id", unique = true, nullable = false, length = 50)
+    private Integer examId;
     @ManyToOne
     @JoinColumn(name = "certificate_id")
     @NonNull
@@ -33,5 +35,4 @@ public class ExamInfo {
     private Date examDate;
     @NonNull
     private Date publishDate;
-    
 }

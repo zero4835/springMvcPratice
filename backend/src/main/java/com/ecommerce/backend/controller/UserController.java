@@ -68,19 +68,4 @@ public class UserController {
         Member result = memberService.saveMember(member);
         return ResponseEntity.ok().body(result);
     }
-
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody Member member) 
-    throws Exception {
-        Member userAccount = memberService.getMemberbyEmail(member.getEmail());
-        if (userAccount == null) {
-            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
-        } else if (userAccount.getPassword().equals(member.getPassword())) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Wrong password", HttpStatus.FORBIDDEN);
-        }
-    }
-
-
 }

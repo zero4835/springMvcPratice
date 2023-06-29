@@ -8,9 +8,15 @@ const LoginPopup=(props)=>{
     const navigate = useNavigate();
 
     const [showModal, setShowModal] = useState(false);
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
+
+    const requestInfomation={
+        method : 'POST',
+        headers: { 'Content-Type': 'application/json' }, 
+        body : JSON.stringify({ email: email, password :password})
+    };
 
     const handleModalOpen = (e) => {
         e.preventDefault();
@@ -22,19 +28,31 @@ const LoginPopup=(props)=>{
     };
 
     const handleSubmit = async (event) => {
-
         event.preventDefault();
+    
+        await fetch('/api/login', requestInfomation)
+            .then(async response => {
+                if (response.status === 200) {
+                    // 在此必須要在這是才能做異步的動作並且保證jwt token以String的形態被使用
+                    response = await response.text(); // 獲取回應內容
+                    alert("Success");
+                    setShowModal(false);
+                    console.log(response); // 檢查回應資料
+                    localStorage.setItem('jwt_token', response); // 存儲 JWT 令牌
+                    navigate('/');
+                } else {
+                    alert("error " + response.status);
+                    navigate('/skilltree');
+                    setShowModal(false);
+                }
+            })
+            .catch(e => console.log(e));
+    }
 
-        await fetch('/api/login', {method : 'POST', body : JSON.stringify({ email, password })
-        }).then(response=>{
-            if (response.status === 200) {
-                navigate('/skill');
-            }else{
-                navigate('/');
-                setShowModal(false);
-            }
-        })
-        .catch(e=>console.log(e))
+
+    const handleRegister=async(event)=>{
+        setShowModal(false);
+        navigate('/members/new');
     }
 
 
@@ -84,7 +102,7 @@ const LoginPopup=(props)=>{
                             <Button className="primary m-auto" type="submit">
                                 登入 
                             </Button>
-                            <Button className="primary m-auto" onClick={handleModalClose}>
+                            <Button className="primary m-auto" onClick={handleRegister}>
                                 註冊
                             </Button>
                         </Modal.Footer>

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.backend.repository.MemberRepository;
+import com.ecommerce.backend.service.JWTService;
 import com.ecommerce.backend.service.MemberService;
 
 import jakarta.validation.Valid;
@@ -30,8 +31,12 @@ public class MemberController {
 
     @Autowired
     private MemberRepository memberRepository;
+
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private JWTService jwtService;
 
     @GetMapping("/members")
     public List<Member> members() {
@@ -62,12 +67,19 @@ public class MemberController {
         memberRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
-    
-    @PostMapping("/tests")
-    public ResponseEntity<Member> test(@Valid @RequestBody Member member) throws Exception {
-        Member result = memberService.saveMember(member);
-        return ResponseEntity.ok().body(result);
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody Member member) 
+    throws Exception {
+        Member userAccount = memberService.getMemberbyEmail(member.getEmail());
+        if (userAccount == null) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        } else if (userAccount.getPassword().equals(member.getPassword())) {
+            String token = jwtService.createToken(userAccount.getMid(), userAccount.getEmail());
+            System.out.println("Generated token: " + token); // Add this debug output
+            return new ResponseEntity<>(token, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Wrong password", HttpStatus.FORBIDDEN);
+        }
     }
-
-
 }

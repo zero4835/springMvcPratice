@@ -17,7 +17,6 @@ public class VendorServiceImpl implements VendorService {
 
     @Override
     public Vendor saveVendor(Vendor vendor) {
-        vendor.setVendorId(UUID.randomUUID().toString().replaceAll("-", ""));
         vendorRepository.save(vendor);
         return vendor;
     }

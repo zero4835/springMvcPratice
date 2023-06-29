@@ -2,9 +2,8 @@ package com.ecommerce.backend.service;
 
 public interface JWTService {
     
-    public String createToken();
-    public Integer getUserIdFromToken();
-    public boolean tokenCheckAdmin();
-    public boolean checkToken();
+    public String createToken(Integer userId, String email);
+    public Integer getUserIdFromToken(String token);
+    public boolean checkToken(String token);
 
 }

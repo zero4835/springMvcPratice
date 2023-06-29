@@ -18,7 +18,7 @@ public class Vendor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "vendor_id", unique = true, nullable = false)
-	private String vendorId;
+	private Integer vendorId;
 	@NonNull
 	@Column(name = "name", unique = true, nullable = false, length = 50)
 	private String name;
