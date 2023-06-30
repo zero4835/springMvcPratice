@@ -8,7 +8,7 @@ import {
     NavItem,
     NavLink
 } from 'reactstrap';
-import logo from '../logo.svg';
+import logo from '../img/black-cat.png';
 import LoginPopup from './LoginPopup';
 
 class MyNavbar extends Component {
@@ -28,14 +28,14 @@ class MyNavbar extends Component {
 
     render() {
         return (
-            <Navbar className="p-1" color="dark" dark>
-                <NavbarBrand href="/" className="mr-auto">
+            <Navbar className="p-1 indigo"  dark>
+                <NavbarBrand href="/" className="mt-auto">
                     <img
                         alt=""
                         src={logo}
-                        width="30"
-                        height="30"
-                        className="d-inline-block align-top"
+                        width="45"
+                        height="45"
+                        className=""
                     />
                     {' Meteor'}
                 </NavbarBrand>
@@ -44,7 +44,7 @@ class MyNavbar extends Component {
                         <LoginPopup />
                     </NavItem>
                 </Nav>
-                <NavbarToggler onClick={this.toogleNavbar} className="mr-2 mb-1 mt-1 ms-3"/>
+                <NavbarToggler onClick={this.toogleNavbar} className="mr-2 mb-1 mt-1 ms-3 btn btn-outline-info "/>
                 <Collapse isOpen={!this.state.collapse} navbar>
                     <Nav className="ml-auto" navbar>
                             <NavItem>

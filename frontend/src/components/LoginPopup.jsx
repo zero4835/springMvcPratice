@@ -1,6 +1,6 @@
-import React,{useState, useEffect, useRef} from 'react';
-import { Link, useNavigate} from 'react-router-dom';
-import { Modal, Button, Container } from 'react-bootstrap';
+import React,{useState, useEffect} from 'react';
+import { useNavigate} from 'react-router-dom';
+import { Modal, Button } from 'react-bootstrap';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
 
 const LoginPopup=(props)=>{
@@ -58,7 +58,9 @@ const LoginPopup=(props)=>{
 
     return (
         <React.StrictMode>
-            <Button className="ps-1 pe-1 pt-1 pb-1 ms-5 ml-auto" onClick={handleModalOpen}>Login</Button>
+            <Button className="btn btn-light ps-1 pe-1 pt-1 pb-1 ms-5 ml-auto " onClick={handleModalOpen}>
+                Login
+            </Button>
 
             <Modal show={showModal} onHide={handleModalClose}>
                 <Modal.Header closeButton>
