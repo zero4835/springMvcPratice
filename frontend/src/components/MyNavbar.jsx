@@ -24,19 +24,42 @@ const MyNavbar = ({user, setUser}) => {
     };
 
     const handleLogout = (e) => {
+        setUser(null);
         localStorage.removeItem('jwt_token');
         setToken(localStorage.getItem('jwt_token'));
-        setUser(null);
         navigate('/');
     };
-    
-    console.log("myNabar "+user);
 
-    useEffect(() =>{
+    const fetchUserInfo = async () => {
+        try {
+            const response = await fetch("/api/getIdbyToken", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.ok) {
+                const userData = await response.json();
+                setUser(userData);
+            } else {
+                setUser(null);
+            }
+        } catch (error) {
+            console.error('Error fetching user information:', error);
+            setUser(null);
+        }
+    };
+
+    useEffect(() => {
         const storedToken = localStorage.getItem('jwt_token');
         setToken(storedToken);
+    
+        if (token !== null && user === null) {
+            fetchUserInfo();
+        }
     }, [token, user]);
 
+    
     return (    
     <Navbar className="p-1 indigo" dark>
         <NavbarBrand href="/" className="mt-auto">

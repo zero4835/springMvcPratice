@@ -31,24 +31,24 @@ const LoginPopup=({ handleUserLogin })=>{
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-      
+
         await fetch('/api/login', requestInfomation)
-          .then(async (response) => {
+        .then(async (response) => {
             if (response.status === 200) {
-              response = await response.text();
-              alert('Success');
-              setShowModal(false);
-              console.log(response);
-              localStorage.setItem('jwt_token', response);
-              navigate('/userpage');
+                response = await response.text();
+                alert('Success');
+                setShowModal(false);
+                console.log(response);
+                localStorage.setItem('jwt_token', response);
+                navigate('/userpage');
             } else {
-              alert('error ' + response.status);
-              navigate('/skilltree');
-              setShowModal(false);
+                alert('error ' + response.status);
+                navigate('/skilltree');
+                setShowModal(false);
             }
-          })
-          .catch((e) => console.log(e));
-      };
+            })
+        .catch((e) => console.log(e));
+    };
 
     const handleRegister=async(event)=>{
         setShowModal(false);

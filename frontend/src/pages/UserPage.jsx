@@ -15,7 +15,7 @@ const UserPage=({user, setUser})=>{
     const requestInfomation={
         method: 'GET',
         headers: {
-            Authorization: `Bearer ${token}`, // 在请求头中添加 Authorization 字段，并将 JWT token 添加到头部
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
         }
     }
@@ -67,7 +67,7 @@ const UserPage=({user, setUser})=>{
         
         <React.StrictMode>
             <Container fluid>
-                    <h3>memberInfomation</h3>
+                    <h3>member Infomation</h3>
                     <Table className="mt-4">
                         <thead>
                         <tr>
