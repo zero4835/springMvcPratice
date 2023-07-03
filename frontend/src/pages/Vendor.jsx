@@ -25,9 +25,9 @@ class Vendor extends Component {
     render() {
         const { vendors } = this.state;
         const vendorList = vendors&&vendors.map(vendor => {
-            return <tr key={vendor.vendorId}>
-                <td>{vendor.name}</td>
-            </tr>
+            return  <tr key={vendor.vendorId}>
+                        <td>{vendor.name}</td>
+                    </tr>
         });
 
         return (

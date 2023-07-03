@@ -1,5 +1,8 @@
 package com.ecommerce.backend.serviceimpl;
 
+import java.util.Optional;
+
+import org.hibernate.internal.util.type.PrimitiveWrapperHelper.LongDescriptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,13 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member getMemberbyEmail(String email) {
         return memberRepository.findByEmail(email);
+    }
+
+    @Override
+    public Member getMemberbyId(Integer id){
+        Long longId = Long.valueOf(id);
+        Optional<Member> optionalMember = memberRepository.findById(longId);
+        return optionalMember.orElse(null);
     }
 
 }

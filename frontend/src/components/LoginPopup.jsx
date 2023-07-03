@@ -3,7 +3,7 @@ import { useNavigate} from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
 
-const LoginPopup=(props)=>{
+const LoginPopup=({ handleUserLogin })=>{
     // in react-route-dom v6 useHistory replace useNavigate
     const navigate = useNavigate();
 
@@ -11,6 +11,8 @@ const LoginPopup=(props)=>{
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
+    const [memberInfo, setMemberInfo] = useState();
+    const [token, setTokken] = useState(localStorage.getItem('jwt_token'));
 
     const requestInfomation={
         method : 'POST',
@@ -29,26 +31,24 @@ const LoginPopup=(props)=>{
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
+      
         await fetch('/api/login', requestInfomation)
-            .then(async response => {
-                if (response.status === 200) {
-                    // 在此必須要在這是才能做異步的動作並且保證jwt token以String的形態被使用
-                    response = await response.text(); // 獲取回應內容
-                    alert("Success");
-                    setShowModal(false);
-                    console.log(response); // 檢查回應資料
-                    localStorage.setItem('jwt_token', response); // 存儲 JWT 令牌
-                    navigate('/');
-                } else {
-                    alert("error " + response.status);
-                    navigate('/skilltree');
-                    setShowModal(false);
-                }
-            })
-            .catch(e => console.log(e));
-    }
-
+          .then(async (response) => {
+            if (response.status === 200) {
+              response = await response.text();
+              alert('Success');
+              setShowModal(false);
+              console.log(response);
+              localStorage.setItem('jwt_token', response);
+              navigate('/userpage');
+            } else {
+              alert('error ' + response.status);
+              navigate('/skilltree');
+              setShowModal(false);
+            }
+          })
+          .catch((e) => console.log(e));
+      };
 
     const handleRegister=async(event)=>{
         setShowModal(false);
