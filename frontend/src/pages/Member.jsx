@@ -28,10 +28,12 @@ class Member extends Component {
 
 		const memberList = members&&members.map(member => {
 			return <tr key={member.mid}>
+				<td>{member.mid}</td>
                 <td>{member.email}</td>
                 <td>{member.password}</td>
                 <td>{member.firstName}</td>
                 <td>{member.lastName}</td>
+				<td>{member.imgUrl}</td>
 			</tr>
 		});
 
@@ -45,10 +47,12 @@ class Member extends Component {
 					<Table className="mt-4">
 						<thead>
 							<tr>
+								<th>Mid</th>
 								<th>Email</th>
 								<th>Password</th>
 								<th>FirstName</th>
 								<th>LastName</th>
+								<th>ImgUrl</th>
 							</tr>
 						</thead>
 						<tbody>

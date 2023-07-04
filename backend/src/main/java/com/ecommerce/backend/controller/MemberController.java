@@ -1,5 +1,6 @@
 package com.ecommerce.backend.controller;
 
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ecommerce.backend.repository.MemberRepository;
 import com.ecommerce.backend.service.JWTService;
@@ -52,9 +55,26 @@ public class MemberController {
     }
 
     @PostMapping("/members")
-    public ResponseEntity<Member> createMember(@Valid @RequestBody Member member) throws Exception {
-        Member result = memberService.saveMember(member);
-        return ResponseEntity.ok().body(result);
+    public ResponseEntity<Member> createMember(@RequestParam("email") String email,
+                                                @RequestParam("password") String password,
+                                                @RequestParam("firstName") String firstName,
+                                                @RequestParam("lastName") String lastName,
+                                                @RequestParam("imgUrl") MultipartFile file) throws Exception {                                         
+        if (file != null && !file.isEmpty()) {
+            //存入的圖片檔名不可為中文或是有空白建
+            String fileName = file.getOriginalFilename();
+            String uploadDir = "C:/Users/ROUSER6/Desktop/E-commerce/frontend/public/images";
+            String filePath = uploadDir + "/" + fileName.replaceAll("\\s", ""); // 去除空格
+            file.transferTo(Paths.get(filePath));
+            Member member = new Member(email, password, firstName, lastName, filePath);
+            Member result = memberService.saveMember(member);
+            System.out.println(email + " " + password + " " + firstName + " " + lastName + " " + filePath);
+            return ResponseEntity.ok().body(result);
+        } else {
+            Member member = new Member(email, password, firstName, lastName, "");
+            Member result = memberService.saveMember(member);
+            return ResponseEntity.ok().body(result);
+        }
     }
 
     @PutMapping("/member/{id}")

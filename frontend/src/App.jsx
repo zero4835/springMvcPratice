@@ -20,7 +20,6 @@ import {
 
 function App(){
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('jwt_token'));
 
   useEffect(()=>{
 

@@ -61,6 +61,7 @@ const UserPage=({user, setUser})=>{
                 <td>{memberInfo.password}</td>
                 <td>{memberInfo.firstName}</td>
                 <td>{memberInfo.lastName}</td>
+                <td>{memberInfo.imgUrl}</td>
             </tr>;
     
     return(
@@ -76,6 +77,7 @@ const UserPage=({user, setUser})=>{
                             <th>password</th>
                             <th>firstName</th>
                             <th>lastName</th>
+                            <th>ImgUrl</th>
                         </tr>
                         </thead>
                         <tbody>

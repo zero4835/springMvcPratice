@@ -16,31 +16,41 @@ const AddMember = () => {
         email: '',
         password: '',
         firstName: '',
-        lastName: ''
+        lastName: '',
+        imgUrl: null // 使用 null 代表初始???有??文件
     });
 
     const handleChange = (event) => {
-        const { name, value } = event.target;
-        setMember((prevMember) => ({ ...prevMember, [name]: value }));
+        const { name, value, type } = event.target;
+        if (type === 'file') {
+            setMember((prevMember) => ({ ...prevMember, [name]: event.target.files[0] }));
+        } else {
+            setMember((prevMember) => ({ ...prevMember, [name]: value }));
+        }
     };
+    
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
+            const formData = new FormData();
+            formData.append('email', member.email);
+            formData.append('password', member.password);
+            formData.append('firstName', member.firstName);
+            formData.append('lastName', member.lastName);
+            formData.append('imgUrl', member.imgUrl); // ?文件添加到表??据中
+
             const response = await fetch('/api/members', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(member)
+                body: formData
             });
 
             if (response.status === 200) {
                 alert('Success');
                 navigate('/members');
             } else {
-                alert('error ' + response.status);
+                alert('Error ' + response.status);
             }
         } catch (error) {
             console.log(error);
@@ -86,6 +96,14 @@ const AddMember = () => {
                             type="text"
                             name="lastName"
                             value={member.lastName}
+                            onChange={handleChange}
+                        />
+                    </FormGroup>
+                    <FormGroup className="col-md-6">
+                        <Label for="imgUrl">ImgUrl</Label>
+                        <Input
+                            type="file" // 使用文件?入?型
+                            name="imgUrl"
                             onChange={handleChange}
                         />
                     </FormGroup>

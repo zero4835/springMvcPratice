@@ -13,19 +13,19 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 const items = [
     {
         id: 1,
-        src:require("../img/7mXlKog.jpg"),
+        src:"./images/7mXlKog.jpg",
         altText: 'Slide 1',
         caption: ''
     },
     {
         id: 2,
-        src:require("../img/58767754_p0.jpg"),
+        src:"./images/58767754_p0.jpg",
         altText: 'Slide 2',
         caption: ''
     },
     {
         id: 3,
-        src:require("../img/86110106_p0.jpg"),
+        src:"./images/86110106_p0.jpg",
         altText: 'Slide 3',
         caption: ''
     }
