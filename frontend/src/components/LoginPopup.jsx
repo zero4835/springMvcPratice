@@ -35,12 +35,13 @@ const LoginPopup=({ handleUserLogin })=>{
         await fetch('/api/login', requestInfomation)
         .then(async (response) => {
             if (response.status === 200) {
-                response = await response.text();
+                response = await response.json();
                 alert('Success');
                 setShowModal(false);
                 console.log(response);
-                localStorage.setItem('jwt_token', response);
-                navigate('/userpage');
+                localStorage.setItem('jwt_token', response.token);
+                navigate(`/userpage/${response.firstName}`);
+                //navigate(`/`);
             } else {
                 alert('error ' + response.status);
                 navigate('/skilltree');

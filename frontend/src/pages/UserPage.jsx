@@ -6,8 +6,7 @@ import {
 
 const UserPage=({user, setUser})=>{
 
-    const [token, setTokken] = useState(localStorage.getItem('jwt_token'));
-    const [isLogin, setIsLogin] = useState(false);
+    const [token, setToken] = useState(localStorage.getItem('jwt_token'));
     const [memberInfo, setMemberInfo] = useState([]);
 
     const mounted=useRef(false);

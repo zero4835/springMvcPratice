@@ -14,7 +14,7 @@ import LoginPopup from './LoginPopup';
 const MyNavbar = ({user, setUser}) => {
 
     const navigate = useNavigate();
-
+    
     const [collapse, setCollapse] = useState(true);
     const [token, setToken] = useState(localStorage.getItem('jwt_token'));
 
@@ -72,6 +72,11 @@ const MyNavbar = ({user, setUser}) => {
         }*/
     }, [token, user]);
 
+    /*useEffect(()=>{
+        if (token === null || user === null) {
+            fetchUserInfo();
+        }
+    },[])*/
     
     return (    
     <Navbar className="p-1 indigo" dark>
@@ -82,7 +87,7 @@ const MyNavbar = ({user, setUser}) => {
         <Nav className="ms-auto" navbar>
         {user &&  token !== null ? (
             < NavItem className="d-flex flex-row">
-                <Link to={`/userpage`}>
+                <Link to={`/userpage/${user.firstName}`}>
                     <img 
                         id="userImage"
                         className="me-1 mt-auto mb-auto" 

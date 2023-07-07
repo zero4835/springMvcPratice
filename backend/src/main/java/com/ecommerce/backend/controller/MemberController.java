@@ -2,7 +2,9 @@ package com.ecommerce.backend.controller;
 
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +91,7 @@ public class MemberController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Member member) 
     throws Exception {
         Member userAccount = memberService.getMemberbyEmail(member.getEmail());
@@ -102,8 +104,26 @@ public class MemberController {
         } else {
             return new ResponseEntity<>("Wrong password", HttpStatus.FORBIDDEN);
         }
+    }*/
+
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, String>> login(@RequestBody Member member) 
+    throws Exception {
+        Member userAccount = memberService.getMemberbyEmail(member.getEmail());
+        if (userAccount == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        } else if (userAccount.getPassword().equals(member.getPassword())) {
+            String token = jwtService.createToken(userAccount.getMid(), userAccount.getEmail());
+            String firstName = userAccount.getFirstName();
+            Map<String, String> response = new HashMap<>();
+            response.put("token", token);
+            response.put("firstName", firstName);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+        }
     }
-    
+
     @GetMapping("/getIdbyToken")
     public ResponseEntity<Member> getIdbyToken(@RequestHeader("Authorization") String token){
         // "Bearer XXXXXXXX"

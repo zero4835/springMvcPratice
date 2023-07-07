@@ -21,12 +21,13 @@ import {
 function App(){
   const [user, setUser] = useState(null);
   const firstName = user ? user.firstName : null;
+  
   useEffect(()=>{
 
   },[user])
 
     return (
-      <div>
+      <React.StrictMode>
         <MyNavbar user={user} setUser={setUser} />
         <Routes>
           <Route path="/" element={<Home/>} ></Route>
@@ -36,10 +37,10 @@ function App(){
           <Route path="/certificates" element={<Certificate/>}></Route>
           <Route path="/vendors" element={<Vendor/>}></Route>
           <Route path="/test" element={<Test/>}></Route>
-          <Route path={`/userpage`} element={<UserPage user={ user} setUser={setUser} />}></Route>
+          <Route path={`/userpage/${firstName}`} element={<UserPage user={user} setUser={setUser} />}></Route>
 
         </Routes>
-      </div>
+      </React.StrictMode>
     );
 }
 
