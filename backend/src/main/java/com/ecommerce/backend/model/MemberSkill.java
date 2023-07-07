@@ -21,10 +21,12 @@ public class MemberSkill {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "member_skill_id", unique = true, nullable = false)
 	private Long memberSkillId;
+	// many skill to one meember
 	@ManyToOne
 	@JoinColumn(name = "mid")
 	@NonNull
 	private Member member;
+	// many MemberSkill to one Skill_id 
 	@ManyToOne
 	@JoinColumn(name = "skill_id")
 	@NonNull

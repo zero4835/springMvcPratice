@@ -24,7 +24,7 @@ const MyCard = () => {
             });
     }, []);
 
-    const examList = exams.map(exam => (
+    const examList = exams && exams.map(exam => (
         <Card className='d-flex justify-content-center align-items-center'>
             <CardBody key={exam.examId}>
                 <CardTitle>證照: {exam.certificate && exam.certificate.name}</CardTitle>

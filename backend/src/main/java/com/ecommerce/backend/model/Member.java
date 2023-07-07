@@ -19,6 +19,8 @@ import lombok.*;
 @Table(name = "members")
 public class Member {
 
+	// NonNull表示值不能為null
+	// nulllable表示表示該字串是否允許為null，預設為true 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "mid", unique = true, nullable = false, length = 50)

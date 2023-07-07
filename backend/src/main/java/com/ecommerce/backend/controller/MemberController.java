@@ -106,6 +106,7 @@ public class MemberController {
     
     @GetMapping("/getIdbyToken")
     public ResponseEntity<Member> getIdbyToken(@RequestHeader("Authorization") String token){
+        // "Bearer XXXXXXXX"
         if (jwtService.checkToken(token.split(" ")[1])){
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }

@@ -63,13 +63,13 @@ const MyNavbar = ({user, setUser}) => {
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
-        if (token !== null && user === null) {
+        if (token === null || user === null) {
             fetchUserInfo();
         }
-        const imageElement = document.getElementById('userImage');
+        /*const imageElement = document.getElementById('userImage');
         if (imageElement) {
             imageElement.src = `./images/${user.imgUrl}?${Date.now()}`;
-        }
+        }*/
     }, [token, user]);
 
     
@@ -82,7 +82,7 @@ const MyNavbar = ({user, setUser}) => {
         <Nav className="ms-auto" navbar>
         {user &&  token !== null ? (
             < NavItem className="d-flex flex-row">
-                <Link to="/userpage">
+                <Link to={`/userpage`}>
                     <img 
                         id="userImage"
                         className="me-1 mt-auto mb-auto" 
@@ -91,7 +91,7 @@ const MyNavbar = ({user, setUser}) => {
                         src={`./images/${user.imgUrl}?${Date.now()}`} alt="notfind 404 "
                     />
                 </Link>
-                <NavLink  tag={Link} to="/userpage" className="text-white mt-auto">{user.firstName}</NavLink>
+                <NavLink  tag={Link} to={`/userpage/${user.firstName}`} className="text-white mt-auto">{user.firstName}</NavLink>
                 <h className="text-white mt-auto mb-auto display-6 pt-auto">&nbsp;/&nbsp;</h>
                 <div className="text-white mt-auto mb-auto pt-1" type="Button" onClick={handleLogout}>logout</div>
             </NavItem>

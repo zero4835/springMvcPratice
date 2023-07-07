@@ -17,7 +17,7 @@ const AddMember = () => {
         password: '',
         firstName: '',
         lastName: '',
-        imgUrl: null // ¨Ï¥Î null ¥Nªíªì©l???¦³??¤å¥ó
+        imgUrl: null // é è¨­ç‚ºnull
     });
 
     const handleChange = (event) => {
@@ -39,7 +39,7 @@ const AddMember = () => {
             formData.append('password', member.password);
             formData.append('firstName', member.firstName);
             formData.append('lastName', member.lastName);
-            formData.append('imgUrl', member.imgUrl); // ?¤å¥ó²K¥[¨ìªí??Õu¤¤
+            formData.append('imgUrl', member.imgUrl); // å°‡æ–‡ä»¶åŠ å…¥memberä¸­
 
             const response = await fetch('/api/members', {
                 method: 'POST',
@@ -102,7 +102,7 @@ const AddMember = () => {
                     <FormGroup className="col-md-6">
                         <Label for="imgUrl">ImgUrl</Label>
                         <Input
-                            type="file" // ¨Ï¥Î¤å¥ó?¤J?«¬
+                            type="file" // ä½¿ç”¨æ–‡ä»¶é¡žåž‹
                             name="imgUrl"
                             onChange={handleChange}
                         />

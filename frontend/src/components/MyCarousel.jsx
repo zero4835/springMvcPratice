@@ -8,8 +8,6 @@ import {
 } from 'reactstrap';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 
-
-// use require to take pic!
 const items = [
     {
         id: 1,
@@ -53,7 +51,7 @@ class MyCarousel extends Component{
 
     next(){
         if (this.animating) return;
-        const nextIndex = this.state.activeIndex === items.length -1 ? 0 : this.state.activeIndex + 1;
+        const nextIndex = this.state.activeIndex === items.length - 1 ? 0 : this.state.activeIndex + 1;
         this.setState({activeIndex : nextIndex});
     }
 

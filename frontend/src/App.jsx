@@ -20,7 +20,7 @@ import {
 
 function App(){
   const [user, setUser] = useState(null);
-
+  const firstName = user ? user.firstName : null;
   useEffect(()=>{
 
   },[user])
@@ -36,7 +36,7 @@ function App(){
           <Route path="/certificates" element={<Certificate/>}></Route>
           <Route path="/vendors" element={<Vendor/>}></Route>
           <Route path="/test" element={<Test/>}></Route>
-          <Route path="/userpage" element={<UserPage user={user} setUser={setUser} />}></Route>
+          <Route path={`/userpage`} element={<UserPage user={ user} setUser={setUser} />}></Route>
 
         </Routes>
       </div>
