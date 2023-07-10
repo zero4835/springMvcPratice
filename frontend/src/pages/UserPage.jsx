@@ -20,8 +20,6 @@ const UserPage=({user, setUser})=>{
     }
 
     useEffect(()=>{
-        if(mounted.current===false){
-            mounted.current=true;
             if (token !== null){
                 fetch("/api/getIdbyToken", requestInfomation)
                 .then(response => response.json())
@@ -35,20 +33,7 @@ const UserPage=({user, setUser})=>{
                     console.error('Error fetching member infomation:', error);
                 });
             }
-        }else{
-            if (token !== null){
-                fetch("/api/getIdbyToken", requestInfomation)
-                .then(response => response.json())
-                .then(response => {
-                    console.log(response)
-                    setMemberInfo(response);
-
-                })
-                .catch(error => {
-                    console.error('Error fetching member infomation:', error);
-                });
-            }
-        }
+        
 
     }, [token/*, requestInfomation*/]);
 
@@ -70,14 +55,14 @@ const UserPage=({user, setUser})=>{
                     <h3>member Infomation</h3>
                     <Table className="mt-4">
                         <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Email</th>
-                            <th>password</th>
-                            <th>firstName</th>
-                            <th>lastName</th>
-                            <th>ImgUrl</th>
-                        </tr>
+                            <tr>
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>password</th>
+                                <th>firstName</th>
+                                <th>lastName</th>
+                                <th>ImgUrl</th>
+                            </tr>
                         </thead>
                         <tbody>
                             {memberInfomation}

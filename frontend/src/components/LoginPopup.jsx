@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+﻿import React,{useState, useEffect} from 'react';
 import { useNavigate} from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
@@ -12,7 +12,7 @@ const LoginPopup=({ handleUserLogin })=>{
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
     const [memberInfo, setMemberInfo] = useState();
-    const [token, setTokken] = useState(localStorage.getItem('jwt_token'));
+    const [token, setToken] = useState(localStorage.getItem('jwt_token'));
 
     const requestInfomation={
         method : 'POST',
@@ -44,7 +44,7 @@ const LoginPopup=({ handleUserLogin })=>{
                 //navigate(`/`);
             } else {
                 alert('error ' + response.status);
-                navigate('/skilltree');
+                navigate('/');
                 setShowModal(false);
             }
             })
