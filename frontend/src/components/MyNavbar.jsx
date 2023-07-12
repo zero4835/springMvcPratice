@@ -71,6 +71,12 @@ const MyNavbar = ({user, setUser, islogin, setIslogin}) => {
 
     }, [islogin, token/*, user*/]);
 
+    // useEffect(() => {
+    //   if (token !== null && user !== null) {
+    //     fetchUserInfo();
+    //   }
+    // }, [user]);
+
     // useEffect(()=>{
     //     if (token === null || user === null) {
     //         fetchUserInfo();

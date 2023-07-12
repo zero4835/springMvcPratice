@@ -24,16 +24,17 @@ const MyCard = () => {
             });
     }, []);
 
-    const examList = exams && exams.map(exam => (
-        <Card className='d-flex justify-content-center align-items-center'>
-            <CardBody key={exam.examId}>
-                <CardTitle>證照: {exam.certificate && exam.certificate.name}</CardTitle>
-                <CardSubtitle>協辦單位: {exam.vendor.name}</CardSubtitle>
-                <CardText>考試日期: {exam.examDate}</CardText>
-                <Button color="outline-primary">learn more</Button>
-            </CardBody>
-        </Card>
+    const examList = exams && exams.map((exam, index) => (
+      <Card className='d-flex justify-content-center align-items-center' key={index}>
+        <CardBody>
+          <CardTitle>證照: {exam.certificate && exam.certificate.name}</CardTitle>
+          <CardSubtitle>協辦單位: {exam.vendor.name}</CardSubtitle>
+          <CardText>考試日期: {exam.examDate}</CardText>
+          <Button color="outline-primary">learn more</Button>
+        </CardBody>
+      </Card>
     ));
+    
 
     return (
         <CardGroup>

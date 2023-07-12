@@ -30,18 +30,29 @@ const UserPage=({user, setUser, islogin, setIslogin})=>{
                     console.error('Error fetching member infomation:', error);
                 });
             }
-    }, [token, /*user, requestInfomation*/]);
+    }, [token/*, user, requestInfomation*/]);
+    
+    
 
     let memberInfomation;
-    memberInfomation =
-            <tr >
-                <td>{user.mid}</td>
-                <td>{user.email}</td>
-                <td>{user.password}</td>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
-                <td>{user.imgUrl}</td>
-            </tr>;
+    if (user) {
+      memberInfomation = (
+        <tr>
+          <td>{user.mid}</td>
+          <td>{user.email}</td>
+          <td>{user.password}</td>
+          <td>{user.firstName}</td>
+          <td>{user.lastName}</td>
+          <td>{user.imgUrl}</td>
+        </tr>
+      );
+    } else {
+      memberInfomation = (
+        <tr>
+          <td colSpan="6">Loading...</td>
+        </tr>
+      );
+    }
     
     return(
         
@@ -60,7 +71,7 @@ const UserPage=({user, setUser, islogin, setIslogin})=>{
                             </tr>
                         </thead>
                         <tbody>
-                            {memberInfomation}
+                          {memberInfomation}
                         </tbody>
                     </Table>
             </Container>
