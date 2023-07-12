@@ -3,7 +3,7 @@ import { useNavigate} from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
 
-const LoginPopup=({ user, setUser })=>{
+const LoginPopup=({ user, setUser , islogin, setIslogin})=>{
     // in react-route-dom v6 useHistory replace useNavigate
     const navigate = useNavigate();
 
@@ -37,6 +37,7 @@ const LoginPopup=({ user, setUser })=>{
         const data = await response.json();
         alert('Success');
         setShowModal(false);
+        setIslogin(true);
         console.log(data);
         localStorage.setItem('jwt_token', data.token);    
         const requestIdInfomation = {
@@ -53,13 +54,14 @@ const LoginPopup=({ user, setUser })=>{
             console.log(response);
             setMemberInfo(response);
             setUser(response);
-            navigate(`/userpage/${data.firstName}`);
+            navigate(`/userpage/${data.firstName}`)
           })
           .catch((error) => {
             console.error('Error fetching member information:', error);
           });
       } else {
         alert('error ' + response.status);
+        setIslogin(false);
         navigate('/');
         setShowModal(false);
       }

@@ -4,12 +4,10 @@ import {
     Table
 } from 'reactstrap';
 
-const UserPage=({user, setUser})=>{
+const UserPage=({user, setUser, islogin, setIslogin})=>{
 
     const [token, setToken] = useState(localStorage.getItem('jwt_token'));
     const [memberInfo, setMemberInfo] = useState([]);
-
-    const mounted=useRef(false);
 
     const requestInfomation={
         method: 'GET',
@@ -25,7 +23,6 @@ const UserPage=({user, setUser})=>{
                 .then(response => response.json())
                 .then(response => {
                     console.log(response)
-                    setMemberInfo(response);
                     if (user === null)
                         setUser(response);
                 })
@@ -33,17 +30,17 @@ const UserPage=({user, setUser})=>{
                     console.error('Error fetching member infomation:', error);
                 });
             }
-    }, [token/*, requestInfomation*/]);
+    }, [token, /*user, requestInfomation*/]);
 
     let memberInfomation;
     memberInfomation =
             <tr >
-                <td>{memberInfo.mid}</td>
-                <td>{memberInfo.email}</td>
-                <td>{memberInfo.password}</td>
-                <td>{memberInfo.firstName}</td>
-                <td>{memberInfo.lastName}</td>
-                <td>{memberInfo.imgUrl}</td>
+                <td>{user.mid}</td>
+                <td>{user.email}</td>
+                <td>{user.password}</td>
+                <td>{user.firstName}</td>
+                <td>{user.lastName}</td>
+                <td>{user.imgUrl}</td>
             </tr>;
     
     return(

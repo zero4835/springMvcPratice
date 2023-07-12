@@ -20,6 +20,8 @@ import {
 
 function App(){
   const [user, setUser] = useState(null);
+  const [islogin, setIslogin] = useState(false)
+
   const firstName = user ? user.firstName : null;
   
   useEffect(()=>{
@@ -28,7 +30,7 @@ function App(){
 
     return (
       <React.StrictMode>
-        <MyNavbar user={user} setUser={setUser} />
+        <MyNavbar user={user} setUser={setUser} islogin={islogin} setIslogin={setIslogin}/>
         <Routes>
           <Route path="/" element={<Home/>} ></Route>
           <Route path="/members/new" element={<AddMember/>} />
@@ -37,7 +39,7 @@ function App(){
           <Route path="/certificates" element={<Certificate/>}></Route>
           <Route path="/vendors" element={<Vendor/>}></Route>
           <Route path="/test" element={<Test/>}></Route>
-          <Route path={`/userpage/${firstName}`} element={<UserPage user={user} setUser={setUser} />}></Route>
+          <Route path={`/userpage/${firstName}`} element={<UserPage user={user} setUser={setUser} islogin={islogin} setIslogin={setIslogin} />}></Route>
 
         </Routes>
       </React.StrictMode>

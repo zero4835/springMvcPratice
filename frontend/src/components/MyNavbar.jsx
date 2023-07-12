@@ -11,12 +11,13 @@ import {
 } from 'reactstrap';
 import LoginPopup from './LoginPopup';
 
-const MyNavbar = ({user, setUser}) => {
+const MyNavbar = ({user, setUser, islogin, setIslogin}) => {
 
     const navigate = useNavigate();
     
     const [collapse, setCollapse] = useState(true);
     const [token, setToken] = useState(localStorage.getItem('jwt_token'));
+    //const [islogin, setIslogin] = useState(false)
 
     const toggleNavbar = () => {
         setCollapse(!collapse);
@@ -24,6 +25,7 @@ const MyNavbar = ({user, setUser}) => {
 
     const handleLogout = (e) => {
         setUser(null);
+        setIslogin(false); 
         localStorage.removeItem('jwt_token');
         localStorage.removeItem('user');
         setToken(localStorage.getItem('jwt_token'));
@@ -66,17 +68,18 @@ const MyNavbar = ({user, setUser}) => {
         if (token === null || user === null) {
             fetchUserInfo();
         }
-        /*const imageElement = document.getElementById('userImage');
-        if (imageElement) {
-            imageElement.src = `./images/${user.imgUrl}?${Date.now()}`;
-        }*/
-    }, [user, token]);
 
-    /*useEffect(()=>{
-        if (token === null || user === null) {
-            fetchUserInfo();
-        }
-    },[])*/
+    }, [islogin, token/*, user*/]);
+
+    // useEffect(()=>{
+    //     if (token === null || user === null) {
+    //         fetchUserInfo();
+    //         const imageElement = document.getElementById('userImage');
+    //         if (imageElement) {
+    //             imageElement.src = `./images/${user.imgUrl}?${Date.now()}`;
+    //         }
+    //     }
+    // },[])
     
     return (    
     <Navbar className="p-1 indigo" dark>
@@ -106,7 +109,7 @@ const MyNavbar = ({user, setUser}) => {
             </NavItem>
         ) : (
             <NavItem>
-                <LoginPopup user={user} setUser={setUser} />
+                <LoginPopup user={user} setUser={setUser} islogin={islogin} setIslogin={setIslogin} />
             </NavItem>
         )}
         </Nav>
