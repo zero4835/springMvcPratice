@@ -38,9 +38,7 @@ const LoginPopup=({ user, setUser })=>{
         alert('Success');
         setShowModal(false);
         console.log(data);
-        localStorage.setItem('jwt_token', data.token);
-        navigate(`/userpage/${data.firstName}`);
-    
+        localStorage.setItem('jwt_token', data.token);    
         const requestIdInfomation = {
           method: 'GET',
           headers: {
@@ -55,7 +53,7 @@ const LoginPopup=({ user, setUser })=>{
             console.log(response);
             setMemberInfo(response);
             setUser(response);
-
+            navigate(`/userpage/${data.firstName}`);
           })
           .catch((error) => {
             console.error('Error fetching member information:', error);

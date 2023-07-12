@@ -70,7 +70,7 @@ const MyNavbar = ({user, setUser}) => {
         if (imageElement) {
             imageElement.src = `./images/${user.imgUrl}?${Date.now()}`;
         }*/
-    }, []);
+    }, [user, token]);
 
     /*useEffect(()=>{
         if (token === null || user === null) {
