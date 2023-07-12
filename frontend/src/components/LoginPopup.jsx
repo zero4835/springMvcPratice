@@ -3,7 +3,7 @@ import { useNavigate} from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
 
-const LoginPopup=({ handleUserLogin })=>{
+const LoginPopup=({ user, setUser })=>{
     // in react-route-dom v6 useHistory replace useNavigate
     const navigate = useNavigate();
 
@@ -30,25 +30,41 @@ const LoginPopup=({ handleUserLogin })=>{
     };
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
+      event.preventDefault();
+    
+      const response = await fetch('/api/login', requestInfomation);
+      if (response.status === 200) {
+        const data = await response.json();
+        alert('Success');
+        setShowModal(false);
+        console.log(data);
+        localStorage.setItem('jwt_token', data.token);
+        navigate(`/userpage/${data.firstName}`);
+    
+        const requestIdInfomation = {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+            'Content-Type': 'application/json'
+          }
+        };
+    
+        fetch('/api/getIdbyToken', requestIdInfomation)
+          .then((response) => response.json())
+          .then((response) => {
+            console.log(response);
+            setMemberInfo(response);
+            setUser(response);
 
-        await fetch('/api/login', requestInfomation)
-        .then(async (response) => {
-            if (response.status === 200) {
-                response = await response.json();
-                alert('Success');
-                setShowModal(false);
-                console.log(response);
-                localStorage.setItem('jwt_token', response.token);
-                navigate(`/userpage/${response.firstName}`);
-                //navigate(`/`);
-            } else {
-                alert('error ' + response.status);
-                navigate('/');
-                setShowModal(false);
-            }
-            })
-        .catch((e) => console.log(e));
+          })
+          .catch((error) => {
+            console.error('Error fetching member information:', error);
+          });
+      } else {
+        alert('error ' + response.status);
+        navigate('/');
+        setShowModal(false);
+      }
     };
 
     const handleRegister=async(event)=>{

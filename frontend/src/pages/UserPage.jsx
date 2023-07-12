@@ -26,15 +26,13 @@ const UserPage=({user, setUser})=>{
                 .then(response => {
                     console.log(response)
                     setMemberInfo(response);
-                    setUser(response);
-                    
+                    if (user === null)
+                        setUser(response);
                 })
                 .catch(error => {
                     console.error('Error fetching member infomation:', error);
                 });
             }
-        
-
     }, [token/*, requestInfomation*/]);
 
     let memberInfomation;

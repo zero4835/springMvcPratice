@@ -70,7 +70,7 @@ const MyNavbar = ({user, setUser}) => {
         if (imageElement) {
             imageElement.src = `./images/${user.imgUrl}?${Date.now()}`;
         }*/
-    }, [token, user]);
+    }, []);
 
     /*useEffect(()=>{
         if (token === null || user === null) {
@@ -81,28 +81,32 @@ const MyNavbar = ({user, setUser}) => {
     return (    
     <Navbar className="p-1 indigo" dark>
         <NavbarBrand href="/" className="mt-auto">
-            <img alt="" src="./images/black-cat.png" width="45" height="45" className="" />
+            {/* src not not use ./ , should be use */}
+            <img alt="" src="/images/black-cat.png" width="45" height="45" className="" />
             {' Meteor'}
         </NavbarBrand>
         <Nav className="ms-auto" navbar>
         {user &&  token !== null ? (
             < NavItem className="d-flex flex-row">
                 <Link to={`/userpage/${user.firstName}`}>
-                    <img 
+                { user && (
+                    <img
                         id="userImage"
-                        className="me-1 mt-auto mb-auto" 
-                        width="35" 
+                        className="me-1 mt-auto mb-auto"
+                        width="35"
                         height="35"
-                        src={`./images/${user.imgUrl}?${Date.now()}`} alt="notfind 404 "
-                    />
+                        src={`/images/${user.imgUrl}`}
+                        alt="notfind 404"
+                    />)
+                }
                 </Link>
                 <NavLink  tag={Link} to={`/userpage/${user.firstName}`} className="text-white mt-auto">{user.firstName}</NavLink>
-                <h className="text-white mt-auto mb-auto display-6 pt-auto">&nbsp;/&nbsp;</h>
+                <span className="text-white mt-auto mb-auto display-6 pt-auto">&nbsp;/&nbsp;</span>
                 <div className="text-white mt-auto mb-auto pt-1" type="Button" onClick={handleLogout}>logout</div>
             </NavItem>
         ) : (
             <NavItem>
-                <LoginPopup/>
+                <LoginPopup user={user} setUser={setUser} />
             </NavItem>
         )}
         </Nav>
