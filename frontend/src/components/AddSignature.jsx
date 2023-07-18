@@ -1,31 +1,63 @@
-import react, { useState, useEffect } from 'react';
-import { Model, Button } from 'react-bootstrap';
-import {
-  Container,
-  Form,
-  FormGroup,
-  Input,
-  Label
-} from 'reactstrap';
-
+import React, { useEffect, useState } from 'react';
+import { Button, Container, Input } from 'reactstrap';
 
 const AddSignature = ({ signature, setSignature }) => {
-  return (
-    <>
-      <Container className='d-flex justify-content-center' >
-        {
-          signature !== "" ?
-            (<Container className='d-flex justify-content-center row' >{signature}
-              <Button className='mt-3' color="primary" type="submit">modify</Button>
-            </Container>) :
-            (
-              <Button className='d-flex justify-content-center row mt-3' color="primary" type="submit">modify</Button>
-            )
-        }
+  const [ismodify, setIsModify] = useState(false);
 
-      </Container>
-    </>
-  )
-}
+  const handleUpdateSignature = () => {
+    setIsModify(false);
+  };
+
+  useEffect(() => {
+
+  }, [signature, ismodify, setIsModify])
+
+  return (
+    <Container className='d-flex justify-content-center'>
+      {signature !== "" ? (
+        <Container className='d-flex justify-content-center row'>
+          {ismodify ? (
+            <Input
+              type='text'
+              Value={signature}
+              onChange={(e) => {
+                setSignature(e.target.value);
+                if (signature === "")
+                  setIsModify(true)
+              }}
+            />
+          ) : (
+            signature
+          )}
+          <Button
+            className='mt-3'
+            color='primary'
+            type='submit'
+            onClick={(e) => {
+              if (ismodify) {
+                handleUpdateSignature(e);
+              } else {
+                setIsModify(true);
+              }
+            }}
+          >
+            {ismodify ? 'Save' : 'Modify'}
+          </Button>
+        </Container>
+      ) : (
+        <Button
+          className='mt-3'
+          color='primary'
+          type='submit'
+          onClick={() => {
+            setIsModify(!ismodify);
+          }}
+        >
+          Add Signature
+        </Button>
+      )}
+    </Container>
+  );
+};
 
 export default AddSignature;
