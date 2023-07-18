@@ -47,6 +47,11 @@ public class UserSignatureController {
     return userSignatureRepository.findAll();
   }
 
+  @GetMapping("/signature/{mid}")
+  public UserSignature getusUserSignature(@PathVariable String mid) {
+    return userSignatureRepository.findByMemberMid(mid);
+  }
+
   @PostMapping("/signature")
   public ResponseEntity<UserSignature> createsignature(@RequestHeader("Authorization") String token,
       @Valid @RequestBody UserSignature userSignature)
@@ -57,13 +62,10 @@ public class UserSignatureController {
 
       int id = jwtService.getUserIdFromToken(token.split(" ")[1]);
       Member member = memberService.getMemberbyId(id);
-      System.out.println("UserSignature email: " + userSignature.getMember().getEmail());
-      System.out.println("Token email: " + member.getEmail());
-
-      // Not use ==
+      // Not use ==, be use equals()
       if (member.getEmail().equals(userSignature.getMember().getEmail())) {
         UserSignature result = userSignatureService.saveSignature(userSignature);
-        System.out.println("Saved UserSignature ID: " + result.getId());
+        //System.out.println("Saved UserSignature ID: " + result.getId());
         return ResponseEntity.ok().body(result);
       } else {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

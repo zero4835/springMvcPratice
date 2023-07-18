@@ -8,6 +8,7 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
 
   const [token, setToken] = useState(localStorage.getItem('jwt_token'));
   const [memberInfo, setMemberInfo] = useState([]);
+  const [signature, setSignature] = useState("");
 
   const requestInfomation = {
     method: 'GET',
@@ -32,20 +33,30 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
   //         }
   // }, [token/*, user, requestInfomation*/]);
 
-  useEffect(()=>{
-    if (token !== null){
-        fetch("/api/signature", requestInfomation)
+  useEffect(() => {
+    if (token !== null) {
+      fetch("/api/signature", requestInfomation)
         .then(response => response.json())
         .then(response => {
-            console.log(response)
-            if (user === null)
-                setUser(response);
+          console.log(response);
+          if (user === null) setUser(response);
+          return response; // 返回 response.json() 的結果
+        })
+        .then(response => {
+          fetch(`/api/signature/${response.mid}`, requestInfomation) // 使用返回的 response 中的 mid
+            .then(response => response.json())
+            .then(response => {
+              if (response && response.signature !== undefined) {
+                setSignature(response.signature);
+                console.log(signature);
+              }
+            });
         })
         .catch(error => {
-            console.error('Error fetching member infomation:', error);
+          console.error('Error fetching member infomation:', error);
         });
     }
-}, [token/*, user, requestInfomation*/]);
+  }, [token/*, user, requestInfomation*/]);
 
   let memberInfomation;
   if (user) {
@@ -69,10 +80,10 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
 
   return (
 
-    <React.StrictMode>
-      <Container fluid>
-        <h3>member Infomation</h3>
-        <Table className="mt-4">
+    <>
+      <Container fluid className='d-flex justify-content-center flex-column  align-items-center'>
+        <h3 className='d-flex  '>member Infomation</h3>
+        {/* <Table className="mt-4">
           <thead>
             <tr>
               <th>ID</th>
@@ -86,9 +97,19 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
           <tbody>
             {memberInfomation}
           </tbody>
-        </Table>
+        </Table> */}
+        <img
+          alt='Not found'
+          src={`/images/${user.imgUrl}`}
+          className="d-flex justify-content-center"
+          width="90"
+          height="90"
+        />
+        {
+          signature !== "" ? signature : ""
+        }
       </Container>
-    </React.StrictMode>
+    </>
   )
 }
 

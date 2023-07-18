@@ -7,5 +7,5 @@ import com.ecommerce.backend.model.UserSignature;
 
 @Repository
 public interface UserSignatureRepository extends JpaRepository<UserSignature, Long>{
-  
+  UserSignature findByMemberMid(String id);
 }
