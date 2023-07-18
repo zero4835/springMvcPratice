@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import AddSignature from '../components/AddSignature';
 import {
   Container,
   Table
@@ -36,25 +37,40 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
   useEffect(() => {
     if (token !== null) {
       fetch("/api/signature", requestInfomation)
-        .then(response => response.json())
         .then(response => {
-          console.log(response);
-          if (user === null) setUser(response);
-          return response; // 返回 response.json() 的結果
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
         })
         .then(response => {
-          fetch(`/api/signature/${response.mid}`, requestInfomation) // 使用返回的 response 中的 mid
-            .then(response => response.json())
+          console.log(response);
+          if (user === null)
+            setUser(response);
+          return response;
+        })
+        .then(response => {
+          fetch(`/api/signature/${user.mid}`, requestInfomation)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
             .then(response => {
               if (response && response.signature !== undefined) {
                 setSignature(response.signature);
                 console.log(signature);
               }
+            })
+            .catch(error => {
+              console.error('Error fetching user signature:', error);
             });
         })
         .catch(error => {
-          console.error('Error fetching member infomation:', error);
+          console.error('Error fetching member information:', error);
         });
+
     }
   }, [token/*, user, requestInfomation*/]);
 
@@ -83,7 +99,7 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
     <>
       <Container fluid className='d-flex justify-content-center flex-column  align-items-center'>
         <h3 className='d-flex  '>member Infomation</h3>
-        {/* <Table className="mt-4">
+        <Table className="mt-4">
           <thead>
             <tr>
               <th>ID</th>
@@ -97,7 +113,7 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
           <tbody>
             {memberInfomation}
           </tbody>
-        </Table> */}
+        </Table>
         <img
           alt='Not found'
           src={`/images/${user.imgUrl}`}
@@ -105,9 +121,9 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
           width="90"
           height="90"
         />
-        {
-          signature !== "" ? signature : ""
-        }
+        <div className="mt-3">
+            <AddSignature signature={signature} setSignature={setSignature} />
+        </div>
       </Container>
     </>
   )
