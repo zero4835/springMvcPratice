@@ -27,22 +27,22 @@ public class Member {
 	private Integer mid;
 
 	@NonNull 
-    @NotEmpty
+  @NotEmpty
 	@Column(name = "email", unique = true, nullable = false, length = 50)
 	private String email;
 
 	@NonNull
-    @NotEmpty
+  @NotEmpty
 	@Column(name = "password", nullable = false, length = 50)
 	private String password;
 
 	@NonNull
-    @NotEmpty
+  @NotEmpty
 	@Column(name = "first_name", nullable = false, length = 50)
 	private String firstName;
 
 	@NonNull
-    @NotEmpty
+  @NotEmpty
 	@Column(name = "last_name", nullable = false, length = 50)
 	private String lastName;
 
@@ -53,7 +53,7 @@ public class Member {
 	private Date updateTime;
 
 	@NonNull
-    @Column(name = "imgurl", length = 1000)
-    private String imgUrl;
+  @Column(name = "imgurl", length = 1000)
+  private String imgUrl;
 
 }
