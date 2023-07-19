@@ -95,11 +95,12 @@ const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
               {user && (
                 <img
                   id="userImage"
-                  className="me-1 mt-auto mb-auto"
+                  className="me-2 mt-1 mb-auto"
                   width="35"
                   height="35"
                   src={`/images/${user.imgUrl}`}
                   alt="notfind 404"
+                  style={{"border-radius":"100%"}}
                 />)
               }
             </Link>

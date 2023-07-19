@@ -65,7 +65,7 @@ public class UserSignatureController {
       // Not use ==, be use equals()
       if (member.getEmail().equals(userSignature.getMember().getEmail())) {
         UserSignature result = userSignatureService.saveSignature(userSignature);
-        //System.out.println("Saved UserSignature ID: " + result.getId());
+        // System.out.println("Saved UserSignature ID: " + result.getId());
         return ResponseEntity.ok().body(result);
       } else {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

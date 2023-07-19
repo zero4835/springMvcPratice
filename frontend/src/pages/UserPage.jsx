@@ -120,9 +120,10 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
           className="d-flex justify-content-center"
           width="90"
           height="90"
+          style={{"border-radius": "100%"}}
         />
         <div className="mt-3">
-            <AddSignature signature={signature} setSignature={setSignature} />
+          <AddSignature signature={signature} setSignature={setSignature} />
         </div>
       </Container>
     </>
