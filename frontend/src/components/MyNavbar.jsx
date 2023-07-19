@@ -100,7 +100,7 @@ const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
                   height="35"
                   src={`/images/${user.imgUrl}`}
                   alt="notfind 404"
-                  style={{"border-radius":"100%"}}
+                  style={{ borderRadius: "100%" }}
                 />)
               }
             </Link>

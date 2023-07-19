@@ -21,7 +21,7 @@ const AddSignature = ({ signature, setSignature, token, user }) => {
     fetch(`/api/signature/${user.mid}`, fetchInformation)
       .then(response => {
         if (!response.ok) {
-          throw new Error('網路回應不正確 error' + response.status);
+          throw new Error('網路回應不正確 error code: ' + response.status);
         }
         return response.json();
       })
@@ -53,7 +53,7 @@ const AddSignature = ({ signature, setSignature, token, user }) => {
               onChange={(e) => setUpdatedSignature(e.target.value)}
             />
           ) : (
-            <div>{signature.signature}</div>
+            <div className='d-flex justify-content-center' >{signature.signature}</div>
           )}
           <Button
             className='mt-3'
