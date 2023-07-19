@@ -1,60 +1,72 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Container, Input } from 'reactstrap';
 
 const AddSignature = ({ signature, setSignature }) => {
-  const [ismodify, setIsModify] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [updatedSignature, setUpdatedSignature] = useState(signature);
 
   const handleUpdateSignature = () => {
-    setIsModify(false);
+    setSignature(updatedSignature);
+    setIsEditing(false);
   };
-
-  useEffect(() => {
-
-  }, [signature, ismodify, setIsModify])
 
   return (
     <Container className='d-flex justify-content-center'>
-      {signature !== "" ? (
+      {signature !== '' ? (
         <Container className='d-flex justify-content-center row'>
-          {ismodify ? (
+          {isEditing ? (
             <Input
               type='text'
-              Value={signature}
-              onChange={(e) => {
-                setSignature(e.target.value);
-                if (signature === "")
-                  setIsModify(true)
-              }}
+              value={updatedSignature}
+              onChange={(e) => setUpdatedSignature(e.target.value)}
             />
           ) : (
-            signature
+            <div>{signature}</div>
           )}
           <Button
             className='mt-3'
             color='primary'
             type='submit'
-            onClick={(e) => {
-              if (ismodify) {
-                handleUpdateSignature(e);
+            onClick={() => {
+              if (isEditing) {
+                handleUpdateSignature();
               } else {
-                setIsModify(true);
+                setIsEditing(true);
               }
             }}
           >
-            {ismodify ? 'Save' : 'Modify'}
+            {isEditing ? 'Save' : 'Modify'}
           </Button>
         </Container>
       ) : (
-        <Button
-          className='mt-3'
-          color='primary'
-          type='submit'
-          onClick={() => {
-            setIsModify(!ismodify);
-          }}
-        >
-          Add Signature
-        </Button>
+        <div>
+          {isEditing ? (
+            <div>
+              <Input
+                type='text'
+                value={updatedSignature}
+                onChange={(e) => setUpdatedSignature(e.target.value)}
+              />
+              <Button
+                className='mt-3'
+                color='primary'
+                type='submit'
+                onClick={handleUpdateSignature}
+              >
+                Save
+              </Button>
+            </div>
+          ) : (
+            <Button
+              className='mt-3'
+              color='primary'
+              type='submit'
+              onClick={() => setIsEditing(true)}
+            >
+              Add Signature
+            </Button>
+          )}
+        </div>
       )}
     </Container>
   );
