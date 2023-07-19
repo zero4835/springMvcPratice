@@ -84,7 +84,7 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
 
   return (
     <>
-      {isLoading ? "Loding" : (
+      {isLoading ? <div style={{ height: "100vh", fontSize: "90px" }} className='d-flex justify-content-center align-items-center'>Loading</div> : (
         <Container fluid className='d-flex justify-content-center flex-column  align-items-center'>
           <h3 className='d-flex  '>member Infomation</h3>
           <Table className="mt-4">
