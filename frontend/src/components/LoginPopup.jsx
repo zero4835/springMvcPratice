@@ -74,7 +74,7 @@ const LoginPopup = ({ user, setUser, islogin, setIslogin }) => {
 
 
   return (
-    <React.StrictMode>
+    <>
       <Button className="btn btn-light ps-1 pe-1 pt-1 pb-1 ms-5 ml-auto " onClick={handleModalOpen}>
         Login
       </Button>
@@ -130,7 +130,7 @@ const LoginPopup = ({ user, setUser, islogin, setIslogin }) => {
 
         </Modal.Body>
       </Modal>
-    </React.StrictMode>
+    </>
   );
 }
 

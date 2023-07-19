@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import AddSignature from '../components/AddSignature';
 import {
   Container,
@@ -6,10 +6,10 @@ import {
 } from 'reactstrap';
 
 const UserPage = ({ user, setUser, islogin, setIslogin }) => {
-
   const [token, setToken] = useState(localStorage.getItem('jwt_token'));
   const [memberInfo, setMemberInfo] = useState([]);
   const [signature, setSignature] = useState({ id: "", signature: "" });
+  const [isLoading, setIsLoading] = useState(true); // Add isloading state
 
   const requestInfomation = {
     method: 'GET',
@@ -18,21 +18,6 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
       'Content-Type': 'application/json'
     }
   }
-
-  // useEffect(() => {
-  //   if (token !== null) {
-  //     fetch("/api/getIdbyToken", requestInfomation)
-  //       .then(response => response.json())
-  //       .then(response => {
-  //         console.log(response)
-  //         if (user === null)
-  //           setUser(response);
-  //       })
-  //       .catch(error => {
-  //         console.error('Error fetching member infomation:', error);
-  //       });
-  //   }
-  // }, [token/*, user, requestInfomation*/]);
 
   useEffect(() => {
     if (token !== null) {
@@ -63,17 +48,19 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
                 setSignature({ id: response.id, signature: response.signature });
                 console.log(signature);
               }
+              //setIsLoading(false); // Set isloading to false when data is fetched
+              setIsLoading(false);
             })
             .catch(error => {
               console.error('Error fetching user signature:', error);
+              // setIsLoading(false); // Set isloading to false on error
             });
         })
         .catch(error => {
           console.error('Error fetching member information:', error);
         });
-
     }
-  }, [token/*, user, requestInfomation*/]);
+  }, [token, isLoading/*, user, requestInfomation*/]);
 
   let memberInfomation;
   if (user) {
@@ -96,37 +83,38 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
   }
 
   return (
-
     <>
-      <Container fluid className='d-flex justify-content-center flex-column  align-items-center'>
-        <h3 className='d-flex  '>member Infomation</h3>
-        <Table className="mt-4">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Email</th>
-              <th>password</th>
-              <th>firstName</th>
-              <th>lastName</th>
-              <th>ImgUrl</th>
-            </tr>
-          </thead>
-          <tbody>
-            {memberInfomation}
-          </tbody>
-        </Table>
-        <img
-          alt='Not found'
-          src={`/images/${user.imgUrl}`}
-          className="d-flex justify-content-center"
-          width="90"
-          height="90"
-          style={{ borderRadius: "30%" }}
-        />
-        <div className="mt-3">
-          <AddSignature signature={signature} setSignature={setSignature} token={token} user={user} />
-        </div>
-      </Container>
+      {isLoading ? "Loding" : (
+        <Container fluid className='d-flex justify-content-center flex-column  align-items-center'>
+          <h3 className='d-flex  '>member Infomation</h3>
+          <Table className="mt-4">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>password</th>
+                <th>firstName</th>
+                <th>lastName</th>
+                <th>ImgUrl</th>
+              </tr>
+            </thead>
+            <tbody>
+              {memberInfomation}
+            </tbody>
+          </Table>
+          <img
+            alt='Not found'
+            src={`/images/${user.imgUrl}`}
+            className="d-flex justify-content-center"
+            width="90"
+            height="90"
+            style={{ borderRadius: "30%" }}
+          />
+          <div className="mt-3">
+            <AddSignature signature={signature} setSignature={setSignature} token={token} user={user} />
+          </div>
+        </Container>
+      )}
     </>
   )
 }
