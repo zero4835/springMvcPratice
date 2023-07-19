@@ -9,6 +9,7 @@ const AddSignature = ({ signature, setSignature, token, user }) => {
   const handleUpdateSignature = () => {
     const updatedData = { ...signature, signature: updatedSignature };
     setSignature(updatedData);
+
     const fetchInformation = {
       method: updatedData.signature ? 'put' : 'post',
       headers: {
@@ -64,6 +65,7 @@ const AddSignature = ({ signature, setSignature, token, user }) => {
                 handleUpdateSignature();
               } else {
                 setIsEditing(true);
+                setUpdatedSignature(signature.signature);
               }
             }}
           >
