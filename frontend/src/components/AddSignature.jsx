@@ -1,18 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Container, Input } from 'reactstrap';
 
-const AddSignature = ({ signature, setSignature }) => {
+const AddSignature = ({ signature, setSignature, token, user }) => {
+
   const [isEditing, setIsEditing] = useState(false);
-  const [updatedSignature, setUpdatedSignature] = useState(signature);
+  const [updatedSignature, setUpdatedSignature] = useState(signature.signature);
 
   const handleUpdateSignature = () => {
-    setSignature(updatedSignature);
+    const updatedData = { ...signature, signature: updatedSignature };
+    setSignature(updatedData);
+    const fetchInformation = {
+      method: updatedData.signature ? 'put' : 'post',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id: updatedData.id, signature: updatedData.signature, member: user })
+    };
+    
+    fetch(`/api/signature/${user.mid}`, fetchInformation)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('網路回應不正確 error' + response.status);
+        }
+        return response.json();
+      })
+      .then(response => {
+        console.log(response);
+        setSignature({ id: response.id, signature: response.signature });
+      })
+      .catch(error => {
+        console.log('錯誤：', error);
+        // 適當地處理錯誤，例如向使用者顯示錯誤訊息。
+      });
     setIsEditing(false);
   };
+  
+
+
+  useEffect(() => {
+
+  }, [signature, token])
 
   return (
     <Container className='d-flex justify-content-center'>
-      {signature !== '' ? (
+      {signature.signature !== "" ? (
         <Container className='d-flex justify-content-center row'>
           {isEditing ? (
             <Input
@@ -21,7 +53,7 @@ const AddSignature = ({ signature, setSignature }) => {
               onChange={(e) => setUpdatedSignature(e.target.value)}
             />
           ) : (
-            <div>{signature}</div>
+            <div>{signature.signature}</div>
           )}
           <Button
             className='mt-3'

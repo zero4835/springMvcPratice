@@ -9,7 +9,7 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
 
   const [token, setToken] = useState(localStorage.getItem('jwt_token'));
   const [memberInfo, setMemberInfo] = useState([]);
-  const [signature, setSignature] = useState("");
+  const [signature, setSignature] = useState({ id: "", signature: "" });
 
   const requestInfomation = {
     method: 'GET',
@@ -19,19 +19,19 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
     }
   }
 
-  // useEffect(()=>{
-  //         if (token !== null){
-  //             fetch("/api/getIdbyToken", requestInfomation)
-  //             .then(response => response.json())
-  //             .then(response => {
-  //                 console.log(response)
-  //                 if (user === null)
-  //                     setUser(response);
-  //             })
-  //             .catch(error => {
-  //                 console.error('Error fetching member infomation:', error);
-  //             });
-  //         }
+  // useEffect(() => {
+  //   if (token !== null) {
+  //     fetch("/api/getIdbyToken", requestInfomation)
+  //       .then(response => response.json())
+  //       .then(response => {
+  //         console.log(response)
+  //         if (user === null)
+  //           setUser(response);
+  //       })
+  //       .catch(error => {
+  //         console.error('Error fetching member infomation:', error);
+  //       });
+  //   }
   // }, [token/*, user, requestInfomation*/]);
 
   useEffect(() => {
@@ -55,11 +55,12 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
               if (!response.ok) {
                 throw new Error('Network response was not ok');
               }
-              return response.json();
+              if (response !== null)
+                return response.json();
             })
             .then(response => {
-              if (response && response.signature !== undefined) {
-                setSignature(response.signature);
+              if (response && response.signature && response.id !== undefined) {
+                setSignature({ id: response.id, signature: response.signature });
                 console.log(signature);
               }
             })
@@ -120,10 +121,10 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
           className="d-flex justify-content-center"
           width="90"
           height="90"
-          style={{"border-radius": "100%"}}
+          style={{ "border-radius": "100%" }}
         />
         <div className="mt-3">
-          <AddSignature signature={signature} setSignature={setSignature} />
+          <AddSignature signature={signature} setSignature={setSignature} token={token} user={user} />
         </div>
       </Container>
     </>

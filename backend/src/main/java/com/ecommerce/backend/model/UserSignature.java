@@ -15,19 +15,26 @@ import lombok.*;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "signature")
-public class UserSignature{
+public class UserSignature {
   @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true, nullable = false, length = 50)
-	private Integer id;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "id", unique = true, nullable = false, length = 50)
+  private Integer id;
 
   @NonNull
-  @Column(name = "user_signature", length=1000)
+  @Column(name = "user_signature", length = 1000)
   private String signature;
 
   @OneToOne
-	@JoinColumn(name = "mid")
-	@NonNull
-	private Member member;
+  @JoinColumn(name = "mid")
+  @NonNull
+  private Member member;
 
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
 }
