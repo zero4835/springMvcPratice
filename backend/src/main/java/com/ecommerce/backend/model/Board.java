@@ -1,6 +1,6 @@
 package com.ecommerce.backend.model;
 
-import java.util.Date;
+import java.util  .Date;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -14,8 +14,8 @@ import lombok.*;
 public class Board {
 
   @Id
-  // @GeneratedValue(strategy = GenerationType.AUTO)
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  // @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "board_id", unique = true, nullable = false, length = 50)
   private Integer id;
 
