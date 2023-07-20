@@ -1,7 +1,6 @@
 package com.ecommerce.backend.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.backend.model.Member;
-import com.ecommerce.backend.model.Skill;
 import com.ecommerce.backend.model.UserSignature;
 import com.ecommerce.backend.repository.UserSignatureRepository;
 import com.ecommerce.backend.service.JWTService;

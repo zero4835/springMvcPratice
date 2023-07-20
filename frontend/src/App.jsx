@@ -40,7 +40,6 @@ function App() {
         <Route path="/vendors" element={<Vendor />}></Route>
         <Route path="/test" element={<Test />}></Route>
         <Route path={`/userpage/${firstName}`} element={<UserPage user={user} setUser={setUser} islogin={islogin} setIslogin={setIslogin} />}></Route>
-
       </Routes>
     </React.StrictMode>
   );
