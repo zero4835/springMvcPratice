@@ -1,6 +1,9 @@
 package com.ecommerce.backend.serviceimpl;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.TimeZone;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +19,9 @@ public class BoardServiceImpl implements BoardService {
 
   @Override
   public Board saveBoard(Board board) {
-    board.setCreateTime(new Date());
+    LocalDateTime taipeiLocalDateTime = LocalDateTime.now();
+    
+    board.setCreateTime(taipeiLocalDateTime);
     return boardRepository.save(board);
   }
 

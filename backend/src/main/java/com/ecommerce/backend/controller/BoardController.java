@@ -51,12 +51,13 @@ public class BoardController {
   }
 
   @PostMapping("/")
-  public ResponseEntity<Board> createBoard(@Valid @RequestBody Board board){
-    Board newBoard=boardService.saveBoard(board);
+  public ResponseEntity<Board> createBoard(@Valid @RequestBody Board board) {
+    Board newBoard = boardService.saveBoard(board);
     return ResponseEntity.ok().body(newBoard);
   }
+
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> deleteBoardEntity(@PathVariable Long id){
+  public ResponseEntity<?> deleteBoardEntity(@PathVariable Long id) {
     boardRepository.deleteById(id);
     return ResponseEntity.ok().build();
   }

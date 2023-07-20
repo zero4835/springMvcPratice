@@ -1,6 +1,6 @@
 package com.ecommerce.backend.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -37,5 +37,5 @@ public class Post {
   private Board board;
 
   @Column(name = "post_create_time")
-  private Date createTime;
+  private LocalDateTime createTime;
 }

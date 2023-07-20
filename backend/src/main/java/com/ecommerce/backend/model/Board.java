@@ -1,6 +1,6 @@
 package com.ecommerce.backend.model;
 
-import java.util  .Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -32,8 +32,8 @@ public class Board {
   @NonNull
   @Column(name = "icon_url", length = 1000)
   private String iconUrl;
-  
+
   @Column(name = "board_create_time")
-	private Date createTime;
+  private LocalDateTime createTime;
 
 }

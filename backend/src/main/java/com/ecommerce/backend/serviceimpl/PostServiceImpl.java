@@ -1,5 +1,6 @@
 package com.ecommerce.backend.serviceimpl;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,9 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public Post savePost(Post post) {
-    post.setCreateTime(new Date());
+    LocalDateTime taipeiLocalDateTime = LocalDateTime.now();
+    post.setCreateTime(taipeiLocalDateTime);
+
     return postRepository.save(post);
   }
 
