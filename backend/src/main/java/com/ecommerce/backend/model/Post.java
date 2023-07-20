@@ -1,6 +1,6 @@
 package com.ecommerce.backend.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -21,7 +21,7 @@ public class Post {
   @NonNull
   @NotEmpty
   @Column(name = "title", unique = true, length = 100)
-  private String title;
+  private String title; 
 
   @NonNull
   @NotEmpty
