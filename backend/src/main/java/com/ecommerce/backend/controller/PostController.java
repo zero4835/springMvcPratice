@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecommerce.backend.model.Member;
 import com.ecommerce.backend.model.Post;
+import com.ecommerce.backend.model.UserSignature;
 import com.ecommerce.backend.repository.PostRepository;
 import com.ecommerce.backend.service.JWTService;
+import com.ecommerce.backend.service.MemberService;
 import com.ecommerce.backend.service.PostService;
 
 import jakarta.validation.Valid;
@@ -32,6 +35,9 @@ public class PostController {
 
   @Autowired
   private PostService postService;
+
+  @Autowired
+  private MemberService memberService;
 
   @Autowired
   private JWTService jwtService;
@@ -56,8 +62,15 @@ public class PostController {
       return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
     }
 
-    Post newPost = postService.savePost(post);
-    return ResponseEntity.ok().body(newPost);
+    int id = jwtService.getUserIdFromToken(token.split(" ")[1]);
+    Member member = memberService.getMemberbyId(id);
+    // Not use ==, be use equals()
+    if (member.getEmail().equals(post.getUser().getEmail())) {
+      Post newPost = postService.savePost(post);
+      return ResponseEntity.ok().body(newPost);
+    } else {
+      return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+    }
   }
 
   @DeleteMapping("/{id}")
