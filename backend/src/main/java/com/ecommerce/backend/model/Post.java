@@ -21,7 +21,7 @@ public class Post {
   @NonNull
   @NotEmpty
   @Column(name = "title", unique = true, length = 100)
-  private String title; 
+  private String title;
 
   @NonNull
   @NotEmpty

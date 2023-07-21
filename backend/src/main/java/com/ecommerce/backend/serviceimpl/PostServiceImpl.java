@@ -2,6 +2,7 @@ package com.ecommerce.backend.serviceimpl;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,14 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
-  public Post getPostByUser(Member user) {
-    Post newPost = postRepository.findByUser(user);
+  public List<Post> getPostByUser(Member user) {
+    List<Post> newPosts = postRepository.findByUser(user);
+    return newPosts;
+  }
+
+  @Override
+  public Post getPostById(Integer id) {
+    Post newPost = postRepository.findById(id);
     return newPost;
   }
 
