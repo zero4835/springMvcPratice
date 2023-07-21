@@ -57,10 +57,10 @@ public class PostController {
   }
 
   @GetMapping("/user")
-    public List<Post> getPostsByUser(@RequestBody Member user){
-      List<Post> newPosts = postService.getPostByUser(user);
+  public List<Post> getPostsByUser(@RequestBody Member user) {
+    List<Post> newPosts = postService.getPostByUser(user);
 
-      return newPosts;
+    return newPosts;
   }
 
   @PostMapping("/")
