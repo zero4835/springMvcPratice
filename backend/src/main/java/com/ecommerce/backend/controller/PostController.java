@@ -56,6 +56,13 @@ public class PostController {
     return ResponseEntity.notFound().build();
   }
 
+  @GetMapping("/user")
+    public List<Post> getPostsByUser(@RequestBody Member user){
+      List<Post> newPosts = postService.getPostByUser(user);
+
+      return newPosts;
+  }
+
   @PostMapping("/")
   public ResponseEntity<Post> createPost(@Valid @RequestBody Post post, @RequestHeader("Authorization") String token) {
     if (jwtService.checkToken(token.split(" ")[1])) {
@@ -65,6 +72,7 @@ public class PostController {
     int id = jwtService.getUserIdFromToken(token.split(" ")[1]);
     Member member = memberService.getMemberbyId(id);
     // Not use ==, be use equals()
+
     if (member.getEmail().equals(post.getUser().getEmail())) {
       Post newPost = postService.savePost(post);
       return ResponseEntity.ok().body(newPost);
