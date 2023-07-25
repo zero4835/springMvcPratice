@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardGroup, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -14,8 +15,8 @@ const PostList = () => {
       } else {
         console.log('獲取資料失敗');
       }
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -29,7 +30,9 @@ const PostList = () => {
         <CardTitle>title: {post.title}</CardTitle>
         <CardSubtitle>user: {post.user.firstName}</CardSubtitle>
         <CardText>content: {post.content}</CardText>
-        <Button color="outline-primary">learn more</Button>
+        <Link to={`/post/${post.id}`}>
+          <Button color="outline-primary">See more</Button>
+        </Link>
       </CardBody>
     </Card>
   ));

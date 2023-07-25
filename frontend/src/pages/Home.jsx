@@ -12,7 +12,7 @@ class Home extends Component {
             <>
                 <MyCarousel/>
                 <PostList/>
-                <Mycard/>
+                {/* <Mycard/> */}
             </>   
         );
     }
