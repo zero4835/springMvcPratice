@@ -42,14 +42,27 @@ public class PostController {
 
   @GetMapping("/")
   public List<Post> posts() {
-    return postRepository.findAll();
+    List<Post> postList = postRepository.findAll();
+    for (Post post : postList) {
+      post.getUser().setImgUrl(convertToRelativeUrl(post.getUser().getImgUrl()));
+    }
+    return postList;
+  }
+
+  private String convertToRelativeUrl(String imageUrl) {
+    return imageUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<?> getPostById(@PathVariable Integer id) {
     Post newPost = postService.getPostById(id);
-    if (newPost != null)
+    if (newPost != null) {
+      String imageUrl = newPost.getUser().getImgUrl();
+      String relativeImageUrl = imageUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");
+      newPost.getUser().setImgUrl(relativeImageUrl);
+
       return ResponseEntity.ok().body(newPost);
+    }
 
     return ResponseEntity.notFound().build();
   }
