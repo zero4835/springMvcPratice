@@ -33,8 +33,19 @@ const PostList = () => {
           src={post.board.iconUrl}
           width="100%"
         />
+        <CardSubtitle>
+          <img
+            className="me-2"
+            alt=""
+            src={post.user.imgUrl}
+            height="30px"
+            width="30px"
+            style={{ borderRadius: "100%" }}
+          />
+          {post.user.firstName}
+        </CardSubtitle>
         <CardTitle>title: {post.title}</CardTitle>
-        <CardSubtitle>user: {post.user.firstName}</CardSubtitle>
+
         <CardText>content: {post.content}</CardText>
         <Link to={`/post/${post.id}`}>
           <Button color="outline-primary">See more</Button>
