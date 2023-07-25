@@ -3,6 +3,7 @@ import '../App.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import MyCarousel from '../components/MyCarousel';
 import Mycard from '../components/MyCard';
+import PostList from '../components/PostList';
 
 class Home extends Component {
 
@@ -10,6 +11,7 @@ class Home extends Component {
         return (
             <>
                 <MyCarousel/>
+                <PostList/>
                 <Mycard/>
             </>   
         );
