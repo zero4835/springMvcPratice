@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.backend.model.Board;
-import com.ecommerce.backend.model.Member;
-import com.ecommerce.backend.model.UserSignature;
 import com.ecommerce.backend.repository.BoardRepository;
 import com.ecommerce.backend.service.BoardService;
 import com.ecommerce.backend.service.JWTService;

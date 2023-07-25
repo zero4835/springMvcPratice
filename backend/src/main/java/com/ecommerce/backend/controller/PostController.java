@@ -13,12 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.backend.model.Member;
 import com.ecommerce.backend.model.Post;
-import com.ecommerce.backend.model.UserSignature;
 import com.ecommerce.backend.repository.PostRepository;
 import com.ecommerce.backend.service.JWTService;
 import com.ecommerce.backend.service.MemberService;
