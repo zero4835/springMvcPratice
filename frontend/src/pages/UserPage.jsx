@@ -18,8 +18,7 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
       'Content-Type': 'application/json'
     }
   }
-
-  useEffect(() => {
+  const fetchData =()=>{
     if (token !== null) {
       fetch("/api/signature", requestInfomation)
         .then(response => {
@@ -60,6 +59,9 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
           console.error('Error fetching member information:', error);
         });
     }
+  }
+  useEffect(() => {
+    fetchData();
   }, [token, isLoading/*, user, requestInfomation*/]);
 
   let memberInfomation;
