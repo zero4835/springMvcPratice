@@ -6,6 +6,7 @@ function PostRoutes() {
   return (
     <Routes>
       <Route path=":postId" element={<Post />} />
+      <Route path=""/>
     </Routes>
   )
 }

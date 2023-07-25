@@ -5,18 +5,18 @@ import PropTypes from 'prop-types'
 function userInfoCard({ userName, userIcon }) {
   return (
     <>
-      <div className="flex w-full justify-between">
+      <div className="d-flex justify-content-center">
         {/* User Name and icon */}
-        <div className="flex items-center space-x-6">
+        <div className="d-flex justify-content-center align-items-center">
           <img
             className="d-flex mt-3 ms-3"
             style={{ height: '30px', width: '30px', borderRadius: "100%" }}
             src={userIcon}
             alt=""
           />
-          <p className="d-flex mt-3 ms-3 text-black tracking-[.7rem] text-3xl font-bold">
+          <div className="d-flex mt-3 ms-3 ">
             {userName}
-          </p>
+          </div>
         </div>
         {/* Follow info */}
       </div>

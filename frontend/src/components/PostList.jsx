@@ -26,12 +26,13 @@ const PostList = () => {
 
   const postList = posts.map((post, index) => (
     <Card className='d-flex justify-content-center align-items-center' key={index}>
-      <CardBody>
+      <CardBody >
         <img
           className="mb-3"
           alt="Card img"
           src={post.board.iconUrl}
-          width="100%"
+          height="100px"
+          width="100px"
         />
         <CardSubtitle>
           <img

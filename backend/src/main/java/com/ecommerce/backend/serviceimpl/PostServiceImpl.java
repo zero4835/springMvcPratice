@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ecommerce.backend.model.Board;
 import com.ecommerce.backend.model.Member;
 import com.ecommerce.backend.model.Post;
 import com.ecommerce.backend.repository.PostRepository;
@@ -36,5 +37,10 @@ public class PostServiceImpl implements PostService {
     Post newPost = postRepository.findById(id);
     return newPost;
   }
+
+  @Override
+  public List<Post> getPostsByBoard(Board board) {
+    return postRepository.findAllByBoard(board);
+}
 
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router'; 
+import { useNavigate } from 'react-router';
 import PropTypes from 'prop-types'
 
 function BoardTag({ boardId, boardIcon, boardName }) {
@@ -7,13 +7,18 @@ function BoardTag({ boardId, boardIcon, boardName }) {
   const navigate = useNavigate();
   return (
     <button
-      className="flex items-center space-x-4 bg-box rounded-2xl w-fit py-3 pl-4 pr-3 hover:bg-card duration-200"
+      className="btn btn-outline-light"
       onClick={() => (navigate(`/board/${boardId}`))}
     >
-      
-      {/* <img src={boardIcon} /> */}
 
-      <span className="text-black tracking-[.5rem] text-lg font-semibold">
+      <img
+        className="ms-2 me-3"
+        alt=""
+        src={boardIcon}
+        height="45px"
+        width="45px"
+      />
+      <span className="text-black">
         {boardName}
       </span>
     </button>

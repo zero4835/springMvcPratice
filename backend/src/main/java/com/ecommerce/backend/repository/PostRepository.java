@@ -5,11 +5,15 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.ecommerce.backend.model.Board;
 import com.ecommerce.backend.model.Member;
 import com.ecommerce.backend.model.Post;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
-    List<Post> findByUser(Member user);
-    Post findById(Integer id);
+  List<Post> findByUser(Member user);
+
+  Post findById(Integer id);
+
+  List<Post> findAllByBoard(Board board);
 }

@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecommerce.backend.model.Board;
 import com.ecommerce.backend.model.Member;
 import com.ecommerce.backend.model.Post;
 import com.ecommerce.backend.repository.PostRepository;
+import com.ecommerce.backend.service.BoardService;
 import com.ecommerce.backend.service.JWTService;
 import com.ecommerce.backend.service.MemberService;
 import com.ecommerce.backend.service.PostService;
@@ -33,6 +35,9 @@ public class PostController {
 
   @Autowired
   private PostService postService;
+
+  @Autowired
+  private BoardService boardService;
 
   @Autowired
   private MemberService memberService;
@@ -61,6 +66,13 @@ public class PostController {
       String relativeImageUrl = imageUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");
       newPost.getUser().setImgUrl(relativeImageUrl);
 
+      String BoardImgUrl = newPost.getBoard().getIconUrl();
+      String relativeBoardImageUrl = BoardImgUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");
+      if (relativeBoardImageUrl.startsWith("./")) {
+        relativeBoardImageUrl = relativeBoardImageUrl.substring(1);
+      }
+      newPost.getBoard().setIconUrl(relativeBoardImageUrl);
+
       return ResponseEntity.ok().body(newPost);
     }
 
@@ -72,6 +84,23 @@ public class PostController {
     List<Post> newPosts = postService.getPostByUser(user);
 
     return newPosts;
+  }
+
+  @GetMapping("/board/{id}")
+  public ResponseEntity<List<Post>> getPostByBoardId(@PathVariable Integer id) {
+
+    Board board = boardService.getBoardById(id);
+    List<Post> posts = postService.getPostsByBoard(board);
+
+    for (Post post : posts) {
+      if (post.getContent().length() > 50) {
+        post.setContent(post.getContent().substring(0, 50) + "...");
+      }
+      String imageUrl = post.getUser().getImgUrl();
+      String relativeImageUrl = imageUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");
+      post.getUser().setImgUrl(relativeImageUrl);
+    }
+    return new ResponseEntity<>(posts, HttpStatus.OK);
   }
 
   @PostMapping("/")

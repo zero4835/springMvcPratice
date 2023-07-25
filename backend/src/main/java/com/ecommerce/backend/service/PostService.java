@@ -2,6 +2,7 @@ package com.ecommerce.backend.service;
 
 import java.util.List;
 
+import com.ecommerce.backend.model.Board;
 import com.ecommerce.backend.model.Member;
 import com.ecommerce.backend.model.Post;
 
@@ -13,4 +14,5 @@ public interface PostService {
 
   public Post getPostById(Integer id);
 
+  public List<Post> getPostsByBoard(Board board);
 }

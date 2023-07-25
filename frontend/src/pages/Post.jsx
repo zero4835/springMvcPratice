@@ -41,7 +41,7 @@ function Post() {
       </div>
       <div className="mx-12">
         <BoardTag
-          boardId={postData.board.Id}
+          boardId={postData.board.id}
           boardIcon={postData.board.iconUrl}
           boardName={postData.board.boardName}
         />
