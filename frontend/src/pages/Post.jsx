@@ -39,7 +39,7 @@ function Post() {
           userIcon={postData.user.imgUrl}
         />
       </div>
-      <div className="mx-12">
+      <div className="mb-2">
         <BoardTag
           boardId={postData.board.id}
           boardIcon={postData.board.iconUrl}
