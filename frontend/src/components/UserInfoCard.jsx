@@ -8,7 +8,8 @@ function userInfoCard({ userName, userIcon}) {
       <div className="flex w-full justify-between">
         {/* User Name and icon */}
         <div className="flex items-center space-x-6">
-          {/* <img src={userIcon} /> */}
+          <img src={userIcon} />
+          {userIcon}
           <p className="text-black tracking-[.7rem] text-3xl font-bold">
             {userName}
           </p>
