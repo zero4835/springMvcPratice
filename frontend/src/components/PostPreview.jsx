@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import BoardTag from './BoardTag'
+import React from 'react';
+import PropTypes from 'prop-types';
+import BoardTag from './BoardTag';
 
 function PostPreview({
   postId,
@@ -13,32 +13,33 @@ function PostPreview({
   boardId,
 }) {
   return (
-    <a href={`/post/${postId}`} className="block">
-      <div className="flex flex-col space-y-6 hover:ml-1 duration-500 delay-100 cursor-pointer mb-8">
+    <a href={`/post/${postId}`} style={{ textDecoration: 'none' }}>
+      <hr className="border-gray-700 m-1" />
+      <div className="d-flex align-items-center space-x-5">
         {/* User Info */}
-        <div className="d-flex items-center space-x-5">
-          <img alt="" src={userIcon} className="mt-2 ms-2"/>
-          <div className="text-black tracking-[.4rem] text-2xl font-semibold">
-            {userName}
-          </div>
-        </div>
-        {/* Content */}
-        <div className="space-y-2">
-          <h1 className="text-black tracking-[.4rem] text-xl">{title}</h1>
-          <p className="text-black tracking-[.3rem] text-sm">
-            {contentPreview}
-          </p>
-        </div>
-        {/* Board Tag */}
-        <BoardTag
-          boardIcon={boardIcon}
-          boardId={boardId}
-          boardName={boardName}
+        <img
+          alt=""
+          src={userIcon}
+          className="mt-2 ms-2 rounded-circle"
+          height="30px"
+          width="30px"
         />
+        <div className="text-black ms-2 mt-2">{userName}</div>
       </div>
+      {/* Content */}
+      <div className="d-flex flex-column mt-2 ms-3 ">
+        <h1 className="text-black tracking-[.4rem] fs-3">{title}</h1>
+        <p className="text-black tracking-[.3rem] fs-6 ms-3">{contentPreview}</p>
+      </div>
+      {/* Board Tag */}
+      {/* <BoardTag
+        boardIcon={boardIcon}
+        boardId={boardId}
+        boardName={boardName}
+      /> */}
       <hr className="border-gray-700" />
     </a>
-  )
+  );
 }
 
 PostPreview.propTypes = {
@@ -50,6 +51,6 @@ PostPreview.propTypes = {
   boardName: PropTypes.string.isRequired,
   boardIcon: PropTypes.string.isRequired,
   boardId: PropTypes.number.isRequired,
-}
+};
 
-export default PostPreview
+export default PostPreview;

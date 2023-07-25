@@ -28,7 +28,7 @@ const PostList = () => {
     <Card className='d-flex justify-content-center align-items-center' key={index}>
       <CardBody >
         <img
-          className="mb-3"
+          className="mb-3 d-flex justify-content-center align-items-center m-auto"
           alt="Card img"
           src={post.board.iconUrl}
           height="100px"
@@ -45,11 +45,11 @@ const PostList = () => {
           />
           {post.user.firstName}
         </CardSubtitle>
-        <CardTitle>title: {post.title}</CardTitle>
+        <CardTitle className="mt-2 fs-5">{post.title}</CardTitle>
 
-        <CardText>content: {post.content}</CardText>
-        <Link to={`/post/${post.id}`}>
-          <Button color="outline-primary">See more</Button>
+        <CardText className="ms-3">{post.content}</CardText>
+        <Link to={`/post/${post.id}`} style={{textDecoration: 'none'}}>
+          <Button className="m-auto d-flex"  color="outline-primary">See more</Button>
         </Link>
       </CardBody>
     </Card>

@@ -54,12 +54,12 @@ function Board() {
       <div className="m-12">
       </div>
       <div className="m-12">
-        {/* <BoardInfo
+        <BoardInfo
           boardId={pId}
           boardIcon={pIcon}
           boardName={pName}
           boardDescription={pDescription}
-        /> */}
+        />
       </div>
       <div className="m-12">
         {data.map((d) => (

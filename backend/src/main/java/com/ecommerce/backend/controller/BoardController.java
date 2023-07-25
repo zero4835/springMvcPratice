@@ -41,9 +41,15 @@ public class BoardController {
   @GetMapping("/{id}")
   public ResponseEntity<?> getBoardById(@PathVariable Integer id) {
     Board board = boardService.getBoardById(id);
-    if (board != null)
+    if (board != null) {
+      String BoardImgUrl = board.getIconUrl();
+      String relativeBoardImageUrl = BoardImgUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");
+      if (relativeBoardImageUrl.startsWith("./")) {
+        relativeBoardImageUrl = relativeBoardImageUrl.substring(1);
+      }
+      board.setIconUrl(relativeBoardImageUrl);
       return ResponseEntity.ok().body(board);
-
+    }
     return ResponseEntity.notFound().build();
   }
 

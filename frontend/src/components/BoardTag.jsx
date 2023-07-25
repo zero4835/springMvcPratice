@@ -7,7 +7,7 @@ function BoardTag({ boardId, boardIcon, boardName }) {
   const navigate = useNavigate();
   return (
     <button
-      className="btn btn-outline-light"
+      className=" btn btn-outline-light"
       onClick={() => (navigate(`/board/${boardId}`))}
     >
 

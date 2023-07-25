@@ -99,6 +99,14 @@ public class PostController {
       String imageUrl = post.getUser().getImgUrl();
       String relativeImageUrl = imageUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");
       post.getUser().setImgUrl(relativeImageUrl);
+
+      String BoardImgUrl = post.getBoard().getIconUrl();
+      String relativeBoardImageUrl = BoardImgUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");
+      if (relativeBoardImageUrl.startsWith("./")) {
+        relativeBoardImageUrl = relativeBoardImageUrl.substring(1);
+      }
+      post.getBoard().setIconUrl(relativeBoardImageUrl);
+      
     }
     return new ResponseEntity<>(posts, HttpStatus.OK);
   }
