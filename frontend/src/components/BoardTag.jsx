@@ -10,11 +10,10 @@ function BoardTag({ boardId, boardIcon, boardName }) {
       className="flex items-center space-x-4 bg-box rounded-2xl w-fit py-3 pl-4 pr-3 hover:bg-card duration-200"
       onClick={() => (navigate(`/board/${boardId}`))}
     >
-      <span
-        className="h-8 w-8 rounded-full bg-cover"
-        style={{ backgroundImage: `url(${boardIcon})` }}
-      ></span>
-      <span className="text-white tracking-[.5rem] text-lg font-semibold">
+      
+      {/* <img src={boardIcon} /> */}
+
+      <span className="text-black tracking-[.5rem] text-lg font-semibold">
         {boardName}
       </span>
     </button>

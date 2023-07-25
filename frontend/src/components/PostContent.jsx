@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import { location } from 'window';
 import axios from 'axios'
 import { HeartIcon, ChatBubbleLeftIcon } from '@heroicons/react/24/solid'
 import {
@@ -20,83 +19,71 @@ function PostContent({ title, content, postId }) {
   const [ownAvatar, setOwnAvatar] = useState('')
 
   const auth = () => {
-    if (!localStorage.getItem('jwt_token')) location.href = '/login'
+    if (!localStorage.getItem('jwt_token')) ;
     else return true
   }
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:8080/api/post/like/${postId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
-          },
-        }
-      )
-      setLikePost(res.data)
+      const res1 = await fetch(`http://localhost:8080/api/post/like/${postId}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+        },
+      });
+      if (!res1.ok) {
+        throw new Error('獲取文章失敗');
+      }
+      const data1 = await res1.json();
+      setLikePost(data1);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    const res = await axios.get('http://localhost:8080/api/users/tokenId/', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
-      },
-    })
-    setOwnAvatar(res.data.imgUrl)
-  }
-
+  
+    try {
+      const res2 = await fetch('http://localhost:8080/api/users/tokenId/', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+        },
+      });
+      if (!res2.ok) {
+        throw new Error('獲取用戶資訊失敗');
+      }
+      const data2 = await res2.json();
+      setOwnAvatar(data2.imgUrl);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
   const updateLikePost = async () => {
-    auth()
+    auth();
     try {
       if (likePost) {
-        await axios.delete(`http://localhost:8080/api/likePosts/${postId}`, {
+        await fetch(`http://localhost:8080/api/likePosts/${postId}`, {
+          method: 'DELETE',
           headers: {
             Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
           },
-        })
+        });
       } else {
-        await axios.post(
-          `http://localhost:8080/api/likePosts/${postId}`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
-            },
-          }
-        )
-      }
-      fetchData()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const createComment = async () => {
-    try {
-      const res = await axios.post(
-        'http://localhost:8080/api/comments/',
-        {
-          content: commentContent,
-          post: {
-            postId: postId,
-          },
-        },
-        {
+        await fetch(`http://localhost:8080/api/likePosts/${postId}`, {
+          method: 'POST',
           headers: {
             Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
           },
-        }
-      )
-      if (res.status === 200) {
-        location.reload()
-      } else {
-        console.log('error')
+          body: JSON.stringify({}),
+        });
       }
+      fetchData();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
+  
+  
+  
 
   useEffect(() => {
     fetchData()
@@ -104,7 +91,7 @@ function PostContent({ title, content, postId }) {
 
   return (
     <>
-      <h1 className="text-white text-2xl tracking-[.35rem] mb-4">{title}</h1>
+      <h1 className="text-black text-2xl tracking-[.35rem] mb-4">{title}</h1>
       <p className="text-tGray tracking-[.25rem]">{content}</p>
       <div className="flex mt-8 space-x-6 -mx-4">
         <button
@@ -119,7 +106,7 @@ function PostContent({ title, content, postId }) {
           ) : (
             <>
               <HeartIconO className="h-6 w-6 text-rose-500" />
-              <span className="text-white tracking-[.4rem]">喜歡</span>
+              <span className="text-black tracking-[.4rem]">喜歡</span>
             </>
           )}
         </button>
@@ -135,35 +122,9 @@ function PostContent({ title, content, postId }) {
             <ChatBubbleLeftIconO className="h-6 w-6 text-sky-500" />
           )}
 
-          <span className="text-white tracking-[.4rem]">留言</span>
+          <span className="text-black tracking-[.4rem]">留言</span>
         </button>
       </div>
-      {showCommentBox && (
-        <div className="mt-4 relative flex items-center">
-          <input
-            type="text"
-            className="bg-box rounded-lg w-full h-20 pl-16 pr-16 text-white tracking-[.3rem] outline-main"
-            placeholder="輸入留言..."
-            value={commentContent}
-            onChange={(e) => setCommentContent(e.target.value)}
-            onKeyPress={(e) => {
-              e.key === 'Enter' && createComment()
-            }}
-          />
-          <span
-            className="h-10 w-10 rounded-full bg-cover absolute left-3"
-            style={{
-              backgroundImage: `url(${ownAvatar})`,
-            }}
-          ></span>
-          <button
-            className="rounded-full hover:bg-gray-700 duration-100 absolute right-3 p-2 outline-none"
-            onClick={() => createComment()}
-          >
-            <PaperAirplaneIcon className="h-8 w-8 text-main" />
-          </button>
-        </div>
-      )}
     </>
   )
 }
