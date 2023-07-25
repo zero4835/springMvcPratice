@@ -40,6 +40,10 @@ public class PostController {
   @Autowired
   private JWTService jwtService;
 
+  private String convertToRelativeUrl(String imageUrl) {
+    return imageUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");
+  }
+
   @GetMapping("/")
   public List<Post> posts() {
     List<Post> postList = postRepository.findAll();
@@ -47,10 +51,6 @@ public class PostController {
       post.getUser().setImgUrl(convertToRelativeUrl(post.getUser().getImgUrl()));
     }
     return postList;
-  }
-
-  private String convertToRelativeUrl(String imageUrl) {
-    return imageUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");
   }
 
   @GetMapping("/{id}")
