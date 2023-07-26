@@ -26,7 +26,7 @@ const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
 
   };
 
-  const toggleAddPost = (event) => {
+  const toggleBoard = (event) => {
     event.preventDefault()
     setIsExpanded(!isExpanded);
   };
@@ -116,7 +116,7 @@ const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
       <Nav className="ms-auto" navbar>
         {user && token !== null ? (
           < NavItem className="d-flex flex-row">
-            <Link to={`/userpage/${user.firstName}`}>
+            <Link to={`/user/${user.firstName}`}>
               {user && (
                 <img
                   id="userImage"
@@ -129,7 +129,7 @@ const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
                 />)
               }
             </Link>
-            <NavLink tag={Link} to={`/userpage/${user.firstName}`} className="text-white mt-auto">{user.firstName}</NavLink>
+            <NavLink tag={Link} to={`/user/${user.firstName}`} className="text-white mt-auto">{user.firstName}</NavLink>
             <span className="text-white mt-auto mb-auto display-6 pt-auto">&nbsp;/&nbsp;</span>
             <div className="text-white mt-auto mb-auto pt-1" type="Button" onClick={handleLogout}>logout</div>
           </NavItem>
@@ -150,7 +150,7 @@ const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
           </NavItem>
 
           <NavItem>
-            <NavLink href="" onClick={toggleAddPost} >Add Post</NavLink>
+            <NavLink href="" onClick={toggleBoard} >Boards</NavLink>
           </NavItem>
           <Collapse isOpen={isExpanded} navbar>
             {isExpanded && (
@@ -172,16 +172,16 @@ const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
           </Collapse>
 
           <NavItem>
-            <NavLink href="/members">Members</NavLink>
+            <NavLink href="/user/list">Members</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/skilltree">SkillTree</NavLink>
+            <NavLink href="/user/skilltree">SkillTree</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/certificates">Certificates</NavLink>
+            <NavLink href="/user/certificates">Certificates</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/vendors">Vendors</NavLink>
+            <NavLink href="/user/vendors">Vendors</NavLink>
           </NavItem>
           <NavItem>
             <NavLink href="https://ithelp.ithome.com.tw/users/20119510/articles">
