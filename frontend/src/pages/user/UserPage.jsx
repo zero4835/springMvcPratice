@@ -18,7 +18,8 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
       'Content-Type': 'application/json'
     }
   }
-  const fetchData =()=>{
+  const fetchData = () => {
+
     if (token !== null) {
       fetch("/api/signature", requestInfomation)
         .then(response => {
@@ -53,6 +54,7 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
             .catch(error => {
               console.error('Error fetching user signature:', error);
               // setIsLoading(false); // Set isloading to false on error
+              setIsLoading(false);
             });
         })
         .catch(error => {
@@ -60,6 +62,7 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
         });
     }
   }
+  
   useEffect(() => {
     fetchData();
   }, [token, isLoading/*, user, requestInfomation*/]);

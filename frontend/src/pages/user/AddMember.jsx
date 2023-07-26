@@ -48,7 +48,7 @@ const AddMember = () => {
 
       if (response.status === 200) {
         alert('Success');
-        navigate('/members');
+        navigate('/user/list');
       } else {
         alert('Error ' + response.status);
       }

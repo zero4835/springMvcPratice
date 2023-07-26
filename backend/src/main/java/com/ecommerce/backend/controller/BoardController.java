@@ -33,9 +33,21 @@ public class BoardController {
   @Autowired
   private JWTService jwtService;
 
+  private String convertToRelativeUrl(String imageUrl) {
+    return imageUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");
+  }
+  
   @GetMapping("/")
   public List<Board> Boards() {
-    return boardRepository.findAll();
+    List<Board> boardList = boardRepository.findAll();
+    for (Board board : boardList) {
+      board.setIconUrl(convertToRelativeUrl(board.getIconUrl()));
+      
+      if (board.getIconUrl().startsWith("./")) {
+        board.setIconUrl(board.getIconUrl().substring(1));
+      }
+    }
+    return boardList;
   }
 
   @GetMapping("/{id}")

@@ -6,7 +6,7 @@ const SkillTree = () => {
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
-    fetch('api/skills')
+    fetch('/api/skills')
       .then(response => response.json())
       .then(data => {
         setSkills(data);

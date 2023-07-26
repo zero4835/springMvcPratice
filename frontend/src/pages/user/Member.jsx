@@ -1,68 +1,63 @@
-import React, {Component} from 'react';
-import { Button, ButtonGroup,ButtonToggle,Container, Table} from 'reactstrap';
+import React, { useState, useEffect } from 'react';
+import { Button, Container, Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import '../../../node_modules/bootstrap/dist/css/bootstrap.css'
 
+const Member = () => {
+  const [members, setMembers] = useState([]);
 
-class Member extends Component {
+  const fetchData = async () => {
+    try {
+      const response = await fetch('/api/members');
+      if (!response.ok) throw new Error('ç¶²è·¯å›žæ‡‰éŒ¯èª¤' + response.status);
+      const data = await response.json();
+      setMembers(data);
+      console.log(members);
+    }
+    catch (e) { console.error(e) }
+  };
 
-	constructor(props) {
-		super(props);
-		this.state = { members: [] };
-	}
+  useEffect(() => {
+    fetchData();
+  }, []); // ç©ºé™£åˆ—è¡¨ç¤ºåƒ…åŸ·è¡Œä¸€æ¬¡
 
-	componentDidMount() {
-		fetch('api/members').then(response => response.json())
-			.then(data => {
-				this.setState({ members: data});
-				setTimeout(() =>{console.log(this.state.members)}, 1000);
-			})
-			.catch(e => {
-				/*µo¥Í¿ù»~®É­n°µªº¨Æ±¡*/
-				console.log(e);
-			})
-	}
+  const memberList = members && members.map(member => {
+    return (
+      <tr key={member.mid}>
+        <td>{member.mid}</td>
+        <td>{member.email}</td>
+        <td>{member.password}</td>
+        <td>{member.firstName}</td>
+        <td>{member.lastName}</td>
+        <td>{member.imgUrl}</td>
+      </tr>
+    );
+  });
 
-	render() {
-		const { members } = this.state;
+  return (
+    <div>
+      <Container fluid>
+        <div className="d-flex mt-3 mb-2 justify-content-center ">
+          <Button color="success" tag={Link} to="/user/new">Add Member</Button>
+        </div>
+        <h3>Member</h3>
+        <Table className="mt-4">
+          <thead>
+            <tr>
+              <th>Mid</th>
+              <th>Email</th>
+              <th>Password</th>
+              <th>FirstName</th>
+              <th>LastName</th>
+              <th>ImgUrl</th>
+            </tr>
+          </thead>
+          <tbody>
+            {memberList}
+          </tbody>
+        </Table>
+      </Container>
+    </div>
+  );
+};
 
-		const memberList = members&&members.map(member => {
-			return <tr key={member.mid}>
-				<td>{member.mid}</td>
-                <td>{member.email}</td>
-                <td>{member.password}</td>
-                <td>{member.firstName}</td>
-                <td>{member.lastName}</td>
-				<td>{member.imgUrl}</td>
-			</tr>
-		});
-
-		return (
-			<div>
-				<Container fluid>
-					<div className="d-flex mt-3 mb-2 justify-content-center ">
-						<Button color="success" tag={Link} to="/members/new">Add Member</Button>
-                    </div>
-					<h3>Member</h3>
-					<Table className="mt-4">
-						<thead>
-							<tr>
-								<th>Mid</th>
-								<th>Email</th>
-								<th>Password</th>
-								<th>FirstName</th>
-								<th>LastName</th>
-								<th>ImgUrl</th>
-							</tr>
-						</thead>
-						<tbody>
-							{memberList}
-						</tbody>
-					</Table>
-				</Container>
-			</div>
-		);
-	}
-
-}
 export default Member;
