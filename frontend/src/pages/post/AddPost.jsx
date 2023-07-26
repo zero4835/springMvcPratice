@@ -22,6 +22,7 @@ const AddPost = () => {
 
   };
 
+  
   return (
     <>
       <div>
