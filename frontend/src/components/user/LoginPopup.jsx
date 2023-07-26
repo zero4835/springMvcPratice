@@ -54,7 +54,7 @@ const LoginPopup = ({ user, setUser, islogin, setIslogin }) => {
           console.log(response);
           setMemberInfo(response);
           setUser(response);
-          navigate(`/userpage/${data.firstName}`)
+          navigate(`/user/${data.firstName}`)
         })
         .catch((error) => {
           console.error('Error fetching member information:', error);
@@ -69,7 +69,7 @@ const LoginPopup = ({ user, setUser, islogin, setIslogin }) => {
 
   const handleRegister = async (event) => {
     setShowModal(false);
-    navigate('/members/new');
+    navigate('/user/new');
   }
 
 
