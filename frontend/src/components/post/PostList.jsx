@@ -27,13 +27,15 @@ const PostList = () => {
   const postList = posts.map((post, index) => (
     <Card className='d-flex justify-content-center align-items-center' key={index}>
       <CardBody >
-        <img
-          className="mb-3 d-flex justify-content-center align-items-center m-auto"
-          alt="Card img"
-          src={post.board.iconUrl}
-          height="100px"
-          width="100px"
-        />
+        <Link to={`/board/${post.board.id}`}>
+          <img
+            className="mb-3 d-flex justify-content-center align-items-center m-auto"
+            alt="Card img"
+            src={post.board.iconUrl}
+            height="100px"
+            width="100px"
+          />
+        </Link>
         <CardSubtitle>
           <img
             className="me-2"
@@ -48,8 +50,8 @@ const PostList = () => {
         <CardTitle className="mt-2 fs-5">{post.title}</CardTitle>
 
         <CardText className="ms-3">{post.content}</CardText>
-        <Link to={`/post/${post.id}`} style={{textDecoration: 'none'}}>
-          <Button className="m-auto d-flex"  color="outline-primary">See more</Button>
+        <Link to={`/post/${post.id}`} style={{ textDecoration: 'none' }}>
+          <Button className="m-auto d-flex" color="outline-primary">See more</Button>
         </Link>
       </CardBody>
     </Card>

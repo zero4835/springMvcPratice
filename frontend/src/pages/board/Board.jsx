@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import BoardInfo from '../components/BoardInfo';
-import PostPreview from '../components/PostPreview';
+import BoardInfo from '../../components/board/BoardInfo';
+import PostPreview from '../../components/post/PostPreview';
 import { useParams } from 'react-router-dom';
 
 function Board() {

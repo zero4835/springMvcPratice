@@ -4,8 +4,6 @@ import {
     Table
 } from 'reactstrap';
 
-import '../../node_modules/bootstrap/dist/css/bootstrap.css';
-
 class Certificate extends Component{
 
     constructor(props){

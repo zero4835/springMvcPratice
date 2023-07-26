@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Button, ButtonGroup,ButtonToggle,Container, Table} from 'reactstrap';
 import { Link } from 'react-router-dom';
-import '../../node_modules/bootstrap/dist/css/bootstrap.css'
+import '../../../node_modules/bootstrap/dist/css/bootstrap.css'
 
 
 class Member extends Component {

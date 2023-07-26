@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BoardTag from './BoardTag';
+import BoardTag from '../board/BoardTag';
 
 function PostPreview({
   postId,

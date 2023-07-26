@@ -9,18 +9,26 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-import LoginPopup from './LoginPopup';
+import LoginPopup from './user/LoginPopup';
 
 const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
 
   const navigate = useNavigate();
 
   const [collapse, setCollapse] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [token, setToken] = useState(localStorage.getItem('jwt_token'));
+  const [boards, setBoards] = useState([]);
   //const [islogin, setIslogin] = useState(false)
 
   const toggleNavbar = () => {
     setCollapse(!collapse);
+
+  };
+
+  const toggleAddPost = (event) => {
+    event.preventDefault()
+    setIsExpanded(!isExpanded);
   };
 
   const handleLogout = (e) => {
@@ -57,6 +65,21 @@ const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
     }
   };
 
+  const fetchBoard = async () => {
+    try {
+      const response = await fetch('/api/board/');
+      if (!response.ok) {
+        throw new Error('獲取主題失敗');
+      }
+      const boardList = await response.json();
+      setBoards(boardList);
+      console.log(boards);
+    }
+    catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     const storedToken = localStorage.getItem('jwt_token');
     setToken(storedToken);
@@ -68,6 +91,8 @@ const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
     if (token === null || user === null) {
       fetchUserInfo();
     }
+
+    fetchBoard();
 
   }, [islogin, token/*, user*/]);
 
@@ -123,6 +148,29 @@ const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
           <NavItem>
             <NavLink href="/">Home</NavLink>
           </NavItem>
+
+          <NavItem>
+            <NavLink href="" onClick={toggleAddPost} >Add Post</NavLink>
+          </NavItem>
+          <Collapse isOpen={isExpanded} navbar>
+            {isExpanded && (
+              <div>
+                {boards.map(board => (
+                  <NavLink key={board.id} href={`/board/${board.id}`} className="ms-3">
+                    <img
+                      alt=""
+                      src={board.iconUrl}
+                      height="28px"
+                      width="28px"
+                      className="me-2 mb-1"
+                    />
+                    {board.boardName}
+                  </NavLink>
+                ))}
+              </div>
+            )}
+          </Collapse>
+
           <NavItem>
             <NavLink href="/members">Members</NavLink>
           </NavItem>

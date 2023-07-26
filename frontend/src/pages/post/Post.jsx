@@ -1,9 +1,9 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-import PostContent from '../components/PostContent'
-import UserInfoCard from '../components/UserInfoCard'
+import PostContent from '../../components/post/PostContent'
+import UserInfoCard from '../../components/user/UserInfoCard'
 import { useParams } from 'react-router-dom'
-import BoardTag from '../components/BoardTag'
+import BoardTag from '../../components/board/BoardTag'
 
 function Post() {
   const { postId } = useParams()

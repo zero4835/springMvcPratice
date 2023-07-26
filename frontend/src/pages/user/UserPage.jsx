@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AddSignature from '../components/AddSignature';
+import AddSignature from '../../components/user/AddSignature';
 import {
   Container,
   Table

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Post from '../pages/Post'
+import Post from '../pages/post/Post'
 
 function PostRoutes() {
   return (

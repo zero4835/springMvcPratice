@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Tree, { AnimatedTree } from 'react-tree-graph';
-import '../../node_modules/react-tree-graph/dist/style.css';
+
 
 const SkillTree = () => {
   const [skills, setSkills] = useState([]);
