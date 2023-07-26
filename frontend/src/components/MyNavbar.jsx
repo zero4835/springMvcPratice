@@ -116,6 +116,9 @@ const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
       <Nav className="ms-auto" navbar>
         {user && token !== null ? (
           < NavItem className="d-flex flex-row">
+            <Link to="/post/newpost">
+              <img alt="" src="/images/penIcon.png" width="30" height="30"  className="mt-2 me-3"/>
+            </Link>
             <Link to={`/user/${user.firstName}`}>
               {user && (
                 <img
