@@ -14,7 +14,9 @@ import {
 const AddPost = () => {
 
   const [post, setPost] = useState([]);
-
+  const [boards, setBoards] = useState([]);
+  const [board, setBoard] = useState([]);
+ 
   const handleSubmit = (e) => {
 
   };
@@ -23,6 +25,21 @@ const AddPost = () => {
 
   };
 
+  const fetchBoard = async () => {
+    try{
+      const response =await fetch('/api/board/');
+      if (!response.ok) throw new Error("Board fetch failed");
+      const boardList = await response.json();
+      setBoards(boardList);
+      console.log(boardList);
+    }catch(e){
+      console.error(e);
+    }
+  };
+
+  useEffect(()=>{
+    fetchBoard();
+  }, [])
 
   return (
     <>
@@ -31,7 +48,7 @@ const AddPost = () => {
           <h2>New Post</h2>
           <Form onSubmit={handleSubmit}>
             <FormGroup>
-              <SelectComponent />
+              <SelectComponent value={board} setValue={setBoard} datas={boards}/>
             </FormGroup>
             <FormGroup>
               <Label for="Title">Title</Label>
