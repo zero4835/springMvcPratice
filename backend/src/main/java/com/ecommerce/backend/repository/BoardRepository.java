@@ -7,5 +7,7 @@ import com.ecommerce.backend.model.Board;
 
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Long> {
-    Board findById(Integer id);
+  Board findById(Integer id);
+
+  Board findByBoardName(String name);
 }

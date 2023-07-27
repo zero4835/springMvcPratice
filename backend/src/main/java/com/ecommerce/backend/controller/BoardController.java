@@ -36,13 +36,13 @@ public class BoardController {
   private String convertToRelativeUrl(String imageUrl) {
     return imageUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");
   }
-  
+
   @GetMapping("/")
   public List<Board> Boards() {
     List<Board> boardList = boardRepository.findAll();
     for (Board board : boardList) {
       board.setIconUrl(convertToRelativeUrl(board.getIconUrl()));
-      
+
       if (board.getIconUrl().startsWith("./")) {
         board.setIconUrl(board.getIconUrl().substring(1));
       }
@@ -53,6 +53,21 @@ public class BoardController {
   @GetMapping("/{id}")
   public ResponseEntity<?> getBoardById(@PathVariable Integer id) {
     Board board = boardService.getBoardById(id);
+    if (board != null) {
+      String BoardImgUrl = board.getIconUrl();
+      String relativeBoardImageUrl = BoardImgUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");
+      if (relativeBoardImageUrl.startsWith("./")) {
+        relativeBoardImageUrl = relativeBoardImageUrl.substring(1);
+      }
+      board.setIconUrl(relativeBoardImageUrl);
+      return ResponseEntity.ok().body(board);
+    }
+    return ResponseEntity.notFound().build();
+  }
+
+  @GetMapping("/getBoardByName/{name}")
+  public ResponseEntity<?> getBoardByBoardName(@PathVariable String name) {
+    Board board = boardService.getBoardByBoardName(name);
     if (board != null) {
       String BoardImgUrl = board.getIconUrl();
       String relativeBoardImageUrl = BoardImgUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");

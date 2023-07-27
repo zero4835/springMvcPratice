@@ -8,4 +8,5 @@ public interface BoardService {
 
   public Board getBoardById(Integer id);
 
+  public Board getBoardByBoardName(String name);
 }

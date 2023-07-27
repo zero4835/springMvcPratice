@@ -30,4 +30,10 @@ public class BoardServiceImpl implements BoardService {
     Board newBoard = boardRepository.findById(id);
     return newBoard;
   }
+
+  @Override
+  public Board getBoardByBoardName(String name){
+    Board newBoard =boardRepository.findByBoardName(name);
+    return newBoard;
+  }
 }
