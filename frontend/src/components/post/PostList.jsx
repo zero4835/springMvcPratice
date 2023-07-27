@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardGroup, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
+import { Card, CardText, CardBody, CardTitle, CardSubtitle, Button, Row, Col, Container } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 const PostList = () => {
@@ -20,47 +20,60 @@ const PostList = () => {
     }
   };
 
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return text.slice(0, maxLength) + '......'; // 若超過最大長度，截斷文本
+    }
+    return text;
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
 
-  const postList = posts.map((post, index) => (
-    <Card className='d-flex justify-content-center align-items-center' key={index}>
-      <CardBody >
+  const postList = posts.map((post) => (
+    <Col key={post.id} className="my-3 p-3" md={6}>
+      <Card outline color="info" body style={{ position: 'relative' }}>
         <Link to={`/board/${post.board.id}`}>
           <img
-            className="mb-3 d-flex justify-content-center align-items-center m-auto"
+            className="mb-3"
             alt="Card img"
             src={post.board.iconUrl}
-            height="100px"
-            width="100px"
+            height="30px"
+            width="30px"
+            style={{ position: 'absolute', top: '5px', right: '5px' }}
           />
         </Link>
-        <CardSubtitle>
+        <Link to={`/post/${post.id}`} style={{ textDecoration: 'none' }}>
+          <CardTitle className="fs-5 mt-3 pt-3" style={{ marginBottom: '10px' }}>
+            {post.title}
+          </CardTitle>
+        </Link>
+        <CardSubtitle
+          style={{ display: 'flex', alignItems: 'center', gap: '5px', position: 'absolute', top: '10px', left: '10px' }}
+        >
           <img
             className="me-2"
             alt=""
             src={post.user.imgUrl}
-            height="30px"
-            width="30px"
-            style={{ borderRadius: "100%" }}
-          />
+            height="30px" width="30px"
+            style={{ borderRadius: '100%', }} />
           {post.user.firstName}
         </CardSubtitle>
-        <CardTitle className="mt-2 fs-5">{post.title}</CardTitle>
-
-        <CardText className="ms-3">{post.content}</CardText>
-        <Link to={`/post/${post.id}`} style={{ textDecoration: 'none' }}>
-          <Button className="m-auto d-flex" color="outline-primary">See more</Button>
+        <CardBody className="pt-1 ps-1 pb-3">
+          <CardText>{truncateText(post.content, 100)}</CardText>
+        </CardBody>
+        <Link to={`/post/${post.id}`} style={{ textDecoration: 'none', position: 'absolute', bottom: '10px', right: '10px' }}>
+          <Button color="outline-primary" className="p-1">See more</Button>
         </Link>
-      </CardBody>
-    </Card>
+      </Card>
+    </Col>
   ));
 
   return (
-    <CardGroup>
-      {postList}
-    </CardGroup>
+    <Container>
+      <Row className="d-flex justify-content-center">{postList}</Row>
+    </Container>
   );
 };
 

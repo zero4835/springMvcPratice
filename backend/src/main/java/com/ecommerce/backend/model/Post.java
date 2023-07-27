@@ -15,17 +15,17 @@ public class Post {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "post_id", unique = true, nullable = false, length = 50)
+  @Column(name = "post_id", unique = true, nullable = false, length = 100)
   private Integer id;
 
   @NonNull
   @NotEmpty
-  @Column(name = "title", unique = true, length = 100)
+  @Column(name = "title", unique = true, length = 10000)
   private String title;
 
   @NonNull
   @NotEmpty
-  @Column(name = "content", length = 1000)
+  @Column(name = "content", length = 20000)
   private String content;
 
   @ManyToOne

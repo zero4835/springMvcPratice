@@ -44,8 +44,6 @@ const AddPost = () => {
         console.log("Post created successfully!");
         // Clear the form fields after successful submission
         navigate("/");
-      } else {
-        console.error("Failed to create post.");
       }
     } catch (error) {
       console.error("Error creating post:", error);
@@ -131,6 +129,7 @@ const AddPost = () => {
                 name="title"
                 value={post.title}
                 onChange={handleChange}
+                maxLength={1000} 
               />
             </FormGroup>
             <FormGroup>
