@@ -21,7 +21,7 @@ public class Board {
 
   @NonNull
   @NotEmpty
-  @Column(name = "board_name", nullable = false, length = 50)
+  @Column(name = "board_name", unique = true, nullable = false, length = 50)
   private String boardName;
 
   @NonNull
