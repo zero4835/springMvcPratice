@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import SelectComponent from '../../components/ui-component/SelectComponent';
 import {
   Button,
   Container,
@@ -22,7 +23,7 @@ const AddPost = () => {
 
   };
 
-  
+
   return (
     <>
       <div>
@@ -30,12 +31,7 @@ const AddPost = () => {
           <h2>New Post</h2>
           <Form onSubmit={handleSubmit}>
             <FormGroup>
-              <select class="custom-select">
-                <option selected>Board</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
+              <SelectComponent />
             </FormGroup>
             <FormGroup>
               <Label for="Title">Title</Label>
