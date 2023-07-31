@@ -86,9 +86,21 @@ public class MemberController {
   }
 
   @PutMapping("/member/{id}")
-  public ResponseEntity<Member> updateMember(@Valid @RequestBody Member member) {
-    Member result = memberRepository.save(member);
-    return ResponseEntity.ok().body(result);
+  public ResponseEntity<Member> updateMember(@Valid @RequestBody Member member, @PathVariable Long id) {
+    Optional<Member> memberOptional = memberRepository.findById(id);
+
+    if (memberOptional.isPresent()) {
+      Member newMember = memberOptional.get();
+      newMember.setEmail(member.getEmail());
+      newMember.setPassword(member.getPassword());
+      newMember.setFirstName(member.getFirstName());
+      newMember.setLastName(member.getLastName());
+      newMember.setImgUrl(member.getImgUrl());
+      Member result = memberService.saveMember(newMember);
+      return ResponseEntity.ok().body(result);
+    } else {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
   }
 
   @DeleteMapping("/member/{id}")
