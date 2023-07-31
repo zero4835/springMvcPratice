@@ -37,6 +37,7 @@ function Post() {
         <UserInfoCard
           userName={postData.user.firstName}
           userIcon={postData.user.imgUrl}
+          userId={postData.user.mid}
         />
       </div>
       <div className="mb-2">
