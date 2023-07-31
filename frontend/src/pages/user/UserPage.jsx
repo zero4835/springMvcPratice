@@ -9,7 +9,7 @@ const UserPage = ({ user, setUser, islogin, setIslogin, isSelf }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [postUser, setPostUser] = useState([]);
   const { postUserId } = useParams();
-  
+
   const requestInfomation = {
     method: 'GET',
     headers: {
@@ -36,7 +36,7 @@ const UserPage = ({ user, setUser, islogin, setIslogin, isSelf }) => {
   };
 
   useEffect(() => {
-    console.log("PostUserId:", postUserId); 
+    console.log("PostUserId:", postUserId);
     if (isSelf) {
       if (token !== null) {
         fetch("/api/signature", requestInfomation)
@@ -102,7 +102,6 @@ const UserPage = ({ user, setUser, islogin, setIslogin, isSelf }) => {
       <tr>
         <td>{postUser.mid}</td>
         <td>{postUser.email}</td>
-        <td>{postUser.password}</td>
         <td>{postUser.firstName}</td>
         <td>{postUser.lastName}</td>
         <td>{postUser.imgUrl}</td>
@@ -117,14 +116,22 @@ const UserPage = ({ user, setUser, islogin, setIslogin, isSelf }) => {
           <h3 className='d-flex  '>member Infomation</h3>
           <Table className="mt-4">
             <thead>
-              <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>password</th>
-                <th>firstName</th>
-                <th>lastName</th>
-                <th>ImgUrl</th>
-              </tr>
+              {isSelf ? (
+                <tr>
+                  <th>ID</th>
+                  <th>Email</th>
+                  <th>password</th>
+                  <th>firstName</th>
+                  <th>lastName</th>
+                  <th>ImgUrl</th>
+                </tr>) : (
+                <tr>
+                  <th>ID</th>
+                  <th>Email</th>
+                  <th>firstName</th>
+                  <th>lastName</th>
+                  <th>ImgUrl</th>
+                </tr>)}
             </thead>
             <tbody>
               {memberInfomation}
@@ -138,9 +145,9 @@ const UserPage = ({ user, setUser, islogin, setIslogin, isSelf }) => {
             height="90"
             style={{ borderRadius: "30%" }}
           />
-          {isSelf && (
+          {(
             <div className="mt-3">
-              <AddSignature signature={signature} setSignature={setSignature} token={token} user={user} />
+              <AddSignature signature={signature} setSignature={setSignature} token={token} user={user} isSelf={isSelf} postUserId={postUserId} />
             </div>
           )}
         </Container>
