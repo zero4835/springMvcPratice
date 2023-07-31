@@ -49,9 +49,17 @@ public class MemberController {
 
   @GetMapping("/member/{id}")
   public ResponseEntity<?> getMember(@PathVariable Long id) {
-    Optional<Member> member = memberRepository.findById(id);
-    return member.map(response -> ResponseEntity.ok().body(response))
-        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    Optional<Member> memberOptional = memberRepository.findById(id);
+
+    if (memberOptional.isPresent()) {
+      Member member = memberOptional.get();
+      String imageUrl = member.getImgUrl();
+      String relativeImageUrl = imageUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");
+      member.setImgUrl(relativeImageUrl);
+      return ResponseEntity.ok().body(member);
+    } else {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
   }
 
   @PostMapping("/members")
