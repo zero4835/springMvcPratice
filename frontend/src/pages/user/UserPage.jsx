@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import AddSignature from '../../components/user/AddSignature';
-import {
-  Container,
-  Table
-} from 'reactstrap';
+import { Container, Table } from 'reactstrap';
+import { useParams } from 'react-router';
 
-const UserPage = ({ user, setUser, islogin, setIslogin }) => {
+const UserPage = ({ user, setUser, islogin, setIslogin, isSelf }) => {
   const [token, setToken] = useState(localStorage.getItem('jwt_token'));
-  const [memberInfo, setMemberInfo] = useState([]);
   const [signature, setSignature] = useState({ id: "", signature: "" });
-  const [isLoading, setIsLoading] = useState(true); // Add isloading state
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [postUser, setPostUser] = useState([]);
+  const { postUserId } = useParams();
+  
   const requestInfomation = {
     method: 'GET',
     headers: {
@@ -18,57 +17,76 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
       'Content-Type': 'application/json'
     }
   }
-  const fetchData = () => {
 
-    if (token !== null) {
-      fetch("/api/signature", requestInfomation)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(response => {
-          console.log(response);
-          if (user === null)
-            setUser(response);
-          return response;
-        })
-        .then(response => {
-          fetch(`/api/signature/${user.mid}`, requestInfomation)
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Network response was not ok');
-              }
-              if (response !== null)
-                return response.json();
-            })
-            .then(response => {
-              if (response && response.signature && response.id !== undefined) {
-                setSignature({ id: response.id, signature: response.signature });
-                console.log(signature);
-              }
-              //setIsLoading(false); // Set isloading to false when data is fetched
-              setIsLoading(false);
-            })
-            .catch(error => {
-              console.error('Error fetching user signature:', error);
-              // setIsLoading(false); // Set isloading to false on error
-              setIsLoading(false);
-            });
-        })
-        .catch(error => {
-          console.error('Error fetching member information:', error);
-        });
+  const fetchUserInformation = async () => {
+    try {
+      const response = await fetch(`/api/member/${postUserId}`);
+      if (!response.ok) throw new Error("fetch postuser data false.")
+      else {
+        const userData = await response.json();
+        setPostUser(userData);
+        setIsLoading(false);
+        console.log(userData);
+      }
     }
-  }
-  
+    catch (e) {
+      console.log(e);
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    fetchData();
-  }, [token, isLoading/*, user, requestInfomation*/]);
+    console.log("PostUserId:", postUserId); 
+    if (isSelf) {
+      if (token !== null) {
+        fetch("/api/signature", requestInfomation)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(response => {
+            console.log(response);
+            if (user === null)
+              setUser(response);
+            return response;
+          })
+          .then(response => {
+            fetch(`/api/signature/${user.mid}`, requestInfomation)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                if (response !== null)
+                  return response.json();
+              })
+              .then(response => {
+                if (response && response.signature && response.id !== undefined) {
+                  setSignature({ id: response.id, signature: response.signature });
+                  console.log(signature);
+                }
+                setIsLoading(false);
+              })
+              .catch(error => {
+                console.error('Error fetching user signature:', error);
+                setIsLoading(false);
+              });
+          })
+          .catch(error => {
+            console.error('Error fetching member information:', error);
+            setIsLoading(false);
+          });
+      } else {
+        fetchUserInformation();
+      }
+    } else {
+      fetchUserInformation();
+    }
+  }, [token, isSelf, user, requestInfomation, postUserId]);
 
   let memberInfomation;
-  if (user) {
+  if (isSelf) {
     memberInfomation = (
       <tr>
         <td>{user.mid}</td>
@@ -82,7 +100,12 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
   } else {
     memberInfomation = (
       <tr>
-        <td colSpan="6">Loading...</td>
+        <td>{postUser.mid}</td>
+        <td>{postUser.email}</td>
+        <td>{postUser.password}</td>
+        <td>{postUser.firstName}</td>
+        <td>{postUser.lastName}</td>
+        <td>{postUser.imgUrl}</td>
       </tr>
     );
   }
@@ -109,15 +132,17 @@ const UserPage = ({ user, setUser, islogin, setIslogin }) => {
           </Table>
           <img
             alt='Not found'
-            src={`/images/${user.imgUrl}`}
+            src={isSelf ? `/images/${user.imgUrl}` : postUser.imgUrl}
             className="d-flex justify-content-center"
             width="90"
             height="90"
             style={{ borderRadius: "30%" }}
           />
-          <div className="mt-3">
-            <AddSignature signature={signature} setSignature={setSignature} token={token} user={user} />
-          </div>
+          {isSelf && (
+            <div className="mt-3">
+              <AddSignature signature={signature} setSignature={setSignature} token={token} user={user} />
+            </div>
+          )}
         </Container>
       )}
     </>

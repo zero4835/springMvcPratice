@@ -52,12 +52,14 @@ const PostList = () => {
         <CardSubtitle
           style={{ display: 'flex', alignItems: 'center', gap: '5px', position: 'absolute', top: '10px', left: '10px' }}
         >
-          <img
-            className="me-2"
-            alt=""
-            src={post.user.imgUrl}
-            height="30px" width="30px"
-            style={{ borderRadius: '100%', }} />
+          <Link to={`/user/${post.user.mid}`}>
+            <img
+              className="me-2"
+              alt=""
+              src={post.user.imgUrl}
+              height="30px" width="30px"
+              style={{ borderRadius: '100%', }} />
+          </Link>
           {post.user.firstName}
         </CardSubtitle>
         <CardBody className="pt-1 ps-1 pb-3">
