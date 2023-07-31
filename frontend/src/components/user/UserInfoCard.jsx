@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { HeartIcon } from '@heroicons/react/24/solid'
 import PropTypes from 'prop-types'
 
 function userInfoCard({ userName, userIcon, userId}) {
