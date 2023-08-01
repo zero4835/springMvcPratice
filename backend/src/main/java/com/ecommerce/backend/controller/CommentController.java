@@ -1,6 +1,7 @@
 package com.ecommerce.backend.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,15 @@ public class CommentController {
   @GetMapping("/")
   public ResponseEntity<List<Comment>> getAllComment() {
     return ResponseEntity.ok().body(commentService.getAllComments());
+  } 
+
+  @GetMapping("/{id}")
+  public ResponseEntity<?> getCommentById(@PathVariable Integer id){
+    Optional<Comment> comments = commentService.getCommentById(id);
+
+    if (!comments.isPresent()) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+    return ResponseEntity.ok().body(comments);
   }
 
   @PostMapping("/")
