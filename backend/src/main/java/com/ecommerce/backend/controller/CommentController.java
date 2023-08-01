@@ -22,6 +22,7 @@ import com.ecommerce.backend.model.Post;
 import com.ecommerce.backend.service.CommentService;
 import com.ecommerce.backend.service.JWTService;
 import com.ecommerce.backend.service.MemberService;
+import com.ecommerce.backend.service.PostService;
 import com.mysql.cj.util.StringUtils;
 
 @RestController
@@ -36,26 +37,37 @@ public class CommentController {
   private MemberService memberService;
 
   @Autowired
+  private PostService postService;
+
+  @Autowired
   private JWTService jwtService;
+
+  private String convertToRelativeUrl(String imageUrl) {
+    return imageUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");
+  }
 
   @GetMapping("/")
   public ResponseEntity<List<Comment>> getAllComment() {
     return ResponseEntity.ok().body(commentService.getAllComments());
-  } 
+  }
 
   @GetMapping("/{id}")
-  public ResponseEntity<?> getCommentById(@PathVariable Integer id){
+  public ResponseEntity<?> getCommentById(@PathVariable Integer id) {
     Optional<Comment> comments = commentService.getCommentById(id);
 
-    if (!comments.isPresent()) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    if (!comments.isPresent())
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
     return ResponseEntity.ok().body(comments);
   }
 
-  @GetMapping("/post")
-  public ResponseEntity<List<Comment>> getAllCommentByPost(@RequestBody Post post){
-    List<Comment> comments = commentService.getCommentsByPost(post);
+  @GetMapping("/post/{postid}")
+  public ResponseEntity<List<Comment>> getAllCommentByPost(@PathVariable Integer postid) {
+    // 根據 postid 獲取 Post 物件（假設你有對應的方法來獲取 Post 物件）
+    Post post = postService.getPostById(postid);
 
+    List<Comment> comments = commentService.getCommentsByPost(post);
+    comments.forEach(comment -> comment.getUser().setImgUrl(convertToRelativeUrl(comment.getUser().getImgUrl())));
     return ResponseEntity.ok().body(comments);
   }
 
@@ -73,14 +85,16 @@ public class CommentController {
     Member member = memberService.getMemberbyId(id);
 
     if (member.getEmail().equals(comment.getUser().getEmail())) {
-      if (comment != null && comment.getContent() != "")
-        return new ResponseEntity<Comment>(commentService.saveComment(comment), null, HttpStatus.CREATED);
+      if (comment != null && comment.getContent() != "") {
+        Comment newComment = commentService.saveComment(comment);
+        return new ResponseEntity<Comment>(newComment, null, HttpStatus.CREATED);
+      }
     }
     return ResponseEntity.noContent().build();
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> deleteCommentById(@PathVariable Integer id){
+  public ResponseEntity<?> deleteCommentById(@PathVariable Integer id) {
     commentService.deleteComment(id);
     return ResponseEntity.status(HttpStatus.GONE).body(null);
   }

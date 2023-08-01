@@ -20,21 +20,31 @@ public class CommentServiceImpl implements CommentService {
   @Autowired
   private CommentRepository commentRepository;
 
+  private String convertToRelativeUrl(String imageUrl) {
+    return imageUrl.replace("C:/Users/ROUSER6/Desktop/E-commerce/frontend/public", "");
+  }
+
   @Override
   public Comment saveComment(Comment comment) {
     LocalDateTime taipeiLocalDateTime = LocalDateTime.now();
     comment.setCreateTime(taipeiLocalDateTime);
-    return commentRepository.save(comment);
+    comment.getUser().setImgUrl(convertToRelativeUrl(comment.getUser().getImgUrl()));
+    commentRepository.save(comment);
+    return comment;
   }
 
   @Override
-  public List<Comment> getAllComments(){
-    return commentRepository.findAll();
+  public List<Comment> getAllComments() {
+    List<Comment> comments = commentRepository.findAll();
+    comments.forEach(comment -> comment.getUser().setImgUrl(convertToRelativeUrl(comment.getUser().getImgUrl())));
+    return comments;
   }
 
   @Override
   public List<Comment> getCommentByPost(Post post) {
-    return commentRepository.findByPost(post);
+    List<Comment> comments = commentRepository.findByPost(post);
+    comments.forEach(comment -> comment.getUser().setImgUrl(convertToRelativeUrl(comment.getUser().getImgUrl())));
+    return comments;
   }
 
   @Override
