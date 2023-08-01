@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.backend.model.Comment;
 import com.ecommerce.backend.model.Member;
+import com.ecommerce.backend.model.Post;
 import com.ecommerce.backend.service.CommentService;
 import com.ecommerce.backend.service.JWTService;
 import com.ecommerce.backend.service.MemberService;
@@ -47,6 +48,13 @@ public class CommentController {
     Optional<Comment> comments = commentService.getCommentById(id);
 
     if (!comments.isPresent()) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+    return ResponseEntity.ok().body(comments);
+  }
+
+  @GetMapping("/post")
+  public ResponseEntity<List<Comment>> getAllCommentByPost(@RequestBody Post post){
+    List<Comment> comments = commentService.getCommentsByPost(post);
 
     return ResponseEntity.ok().body(comments);
   }
