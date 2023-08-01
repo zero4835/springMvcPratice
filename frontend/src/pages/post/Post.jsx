@@ -5,15 +5,17 @@ import PostContent from '../../components/post/PostContent'
 import UserInfoCard from '../../components/user/UserInfoCard'
 import { useParams } from 'react-router-dom'
 import BoardTag from '../../components/board/BoardTag'
+import Comment from '../../components/comment/Comment'
 
 function Post() {
   const { postId } = useParams()
   const [postData, setPostData] = useState();
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
+  const [comments, setComments] = useState([]);
 
-  const fetchData = async () => {
+  const fetchData = async (postId) => {
     try {
-      const postResponse = await fetch(`http://localhost:8080/api/post/${postId}`);
+      const postResponse = await fetch(`/api/post/${postId}`);
       if (!postResponse.ok) {
         throw new Error('獲取文章失敗');
       }
@@ -23,12 +25,25 @@ function Post() {
       console.log(error);
     }
     setLoading(false);
+
+    try {
+      const response = await fetch(`/api/comment/post/${postId}`);
+      if (!response.ok) throw new Error('Network response was not ok');
+
+      const data = await response.json();
+      setComments(data);
+      console.log(data);
+
+    }
+    catch (e) {
+      console.log(e);
+    }
   };
-  
+
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData(postId)
+  }, [postId])
 
   return loading ? (
     <></>
@@ -56,6 +71,18 @@ function Post() {
           userIcon={postData.user.imgUrl}
         />
         <hr className="border-gray-700 my-8" />
+        {comments?.map((data) => (
+          <>
+            <Comment
+              key={data.id}
+              userId={data.user.mid}
+              userIcon={data.user.imgUrl}
+              userName={data.user.firstName}
+              commentText={data.content}
+            />
+            <hr className="border-gray-700 my-8" />
+          </>
+        ))}
       </div>
     </div>
   )
