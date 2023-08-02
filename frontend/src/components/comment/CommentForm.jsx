@@ -25,10 +25,6 @@ const CommentForm = ({ PostData }) => {
       post: PostData
     });
 
-    // console.log(commentText);
-    // console.log(user);
-    // console.log(PostData);
-    
     try {
       const response = await fetch('/api/comment/', requierdInformation);
       if (!response.ok) throw new Error('Error updating comment');
@@ -51,21 +47,25 @@ const CommentForm = ({ PostData }) => {
   return (
     <Container fluid>
       <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="commentText" className="form-label">
-            Comment
-          </label>
-          <textarea
-            className="form-control"
-            id="commentText"
-            rows="2"
-            value={commentText}
-            onChange={(e) => setCommentText(e.target.value)}
-          ></textarea>
+        <div className="d-flex mb-2">
+          <div className="flex-grow-1">
+            <label htmlFor="commentText" className="form-label ms-1">
+              Comment
+            </label>
+            <textarea
+              className="form-control"
+              id="commentText"
+              rows="2"
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+            ></textarea>
+          </div>
+          <div className="d-flex align-items-center ms-2 mt-4 pt-2 ">
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
+          </div>
         </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
       </form>
     </Container>
   );
