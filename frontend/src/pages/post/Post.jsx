@@ -79,8 +79,9 @@ function Post() {
               userIcon={data.user.imgUrl}
               userName={data.user.firstName}
               commentText={data.content}
+              createTime={data.createTime}
             />
-            <hr className="border-gray-700 my-8" />
+            <hr className="border-gray-700 my-1" />
           </>
         ))}
       </div>

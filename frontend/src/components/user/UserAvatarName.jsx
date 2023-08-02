@@ -7,13 +7,13 @@ function UserAvatarName({ userId, userIcon, userName }) {
 
   return (
     <button
-      className="btn btn-link d-flex align-items-center gap-2"
+      className="btn btn-link d-flex gap-2"
       style={{ textDecoration: 'none' }}
       onClick={() => navigate(`/user/${userId}`)}
     >
       <div
-        className="rounded-circle overflow-hidden mb-1"
-        style={{ width: '48px', height: '48px' }}
+        className="rounded-circle overflow-hidden me-1"
+        style={{ width: '35px', height: '35px', marginTop: '-10px' }}
       >
         <img
           src={userIcon}
@@ -21,7 +21,7 @@ function UserAvatarName({ userId, userIcon, userName }) {
           className="w-100 h-100 object-cover"
         />
       </div>
-      <p className="text-black text-2xl fw-semibold">{userName}</p>
+      <p className="text-black text-2xl fw-semibold m-0">{userName}</p>
     </button>
   );
 }
