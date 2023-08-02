@@ -6,6 +6,7 @@ import UserInfoCard from '../../components/user/UserInfoCard'
 import { useParams } from 'react-router-dom'
 import BoardTag from '../../components/board/BoardTag'
 import Comment from '../../components/comment/Comment'
+import CommentForm from '../../components/comment/CommentForm'
 
 function Post() {
   const { postId } = useParams()
@@ -71,6 +72,10 @@ function Post() {
           userIcon={postData.user.imgUrl}
         />
         <hr className="border-gray-700 my-8" />
+        <CommentForm 
+          PostData={postData}
+        />
+        <hr className="border-gray-700 my-1" />
         {comments?.map((data) => (
           <>
             <Comment
