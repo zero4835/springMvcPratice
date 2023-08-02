@@ -7,7 +7,7 @@ function UserAvatarName({ userId, userIcon, userName }) {
 
   return (
     <button
-      className="btn btn-link d-flex gap-2"
+      className="btn btn-link d-flex gap-2 mt-2"
       style={{ textDecoration: 'none' }}
       onClick={() => navigate(`/user/${userId}`)}
     >
