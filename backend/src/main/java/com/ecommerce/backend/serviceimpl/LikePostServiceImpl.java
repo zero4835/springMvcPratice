@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ecommerce.backend.model.LikePost;
 import com.ecommerce.backend.model.Post;
-import com.ecommerce.backend.repository.LikePostRepo;
+import com.ecommerce.backend.repository.LikePostRepository;
 import com.ecommerce.backend.service.LikePostService;
 
 import jakarta.transaction.Transactional;
@@ -17,28 +17,29 @@ import jakarta.transaction.Transactional;
 public class LikePostServiceImpl implements LikePostService {
 
   @Autowired
-  private LikePostRepo likePostRepo;
+  private LikePostRepository likePostRepo;
 
-  public LikePostServiceImpl(LikePostRepo likePostRepo) {
-        this.likePostRepo = likePostRepo;
-    }
-
-  public void saveLikePost(LikePost likePostEntity) {
-    likePostRepo.save(likePostEntity);
+  @Override
+  public LikePost saveLikePost(LikePost likePost) {
+    likePostRepo.save(likePost);
+    return likePost;
   }
 
+  @Override
   public List<LikePost> getAllLikePosts() {
     return likePostRepo.findAll();
   }
 
-  public void deleteLikePost(LikePost likePostEntity) {
-    likePostRepo.delete(likePostEntity);
+  @Override
+  public void deleteLikePost(LikePost likePost) {
+    likePostRepo.delete(likePost);
   }
 
   // public void deleteAllLikePosts() {
   // likePostRepo.deleteAll();
   // }
 
+  @Override
   public void deleteAllLikePostByPost(Post post) {
     likePostRepo.deleteAllByPost(post);
   }

@@ -1,8 +1,6 @@
 package com.ecommerce.backend.serviceimpl;
 
 import java.util.Optional;
-
-import org.hibernate.internal.util.type.PrimitiveWrapperHelper.LongDescriptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

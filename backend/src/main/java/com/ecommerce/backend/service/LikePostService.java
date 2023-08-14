@@ -7,7 +7,7 @@ import com.ecommerce.backend.model.Post;
 
 public interface LikePostService {
 
-  public void saveLikePost(LikePost likePostEntity);
+  public LikePost saveLikePost(LikePost likePostEntity);
 
   public List<LikePost> getAllLikePosts();
 
