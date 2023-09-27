@@ -29,9 +29,9 @@ function App() {
       <MyNavbar user={user} setUser={setUser} islogin={islogin} setIslogin={setIslogin} />
       <Routes>
         <Route path="/" element={<Home />} ></Route>
-        <Route path="/user/*" element={<UserRoutes firstName={firstName} user={user} setUser={setUser} islogin={islogin} setIslogin={setIslogin} / >}></Route>
-        <Route path="/post/*" element={<PostRoutes/>}></Route>
-        <Route path="/board/*" element={<BoardRoutes/>}></Route>
+        <Route path="/user/*" element={<UserRoutes firstName={firstName} user={user} setUser={setUser} islogin={islogin} setIslogin={setIslogin} />}></Route>
+        <Route path="/post/*" element={<PostRoutes />}></Route>
+        <Route path="/board/*" element={<BoardRoutes />}></Route>
       </Routes>
     </React.StrictMode>
   );

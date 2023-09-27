@@ -96,6 +96,21 @@ public class LikePostController {
     return new ResponseEntity<>(likePost, HttpStatus.CREATED);
   }
 
+  @GetMapping("/{userId}")
+    public ResponseEntity<List<LikePost>> getAllLikePostsByUserId(@PathVariable Integer userId) {
+        List<LikePost> likePostEntities = likePostService.getAllLikePosts();
+//        List<LikePostEntity> likePostEntitiesByUserId = likePostEntities.stream()
+//                .filter(likePostEntity -> likePostEntity.getId().getUserId().equals(userId))
+//                .toList();
+        List<LikePost> likePostEntitiesByUserId = new ArrayList<LikePost>();
+        for (LikePost likePostEntity : likePostEntities) {
+            if (likePostEntity.getId().getUserId().equals(userId)) {
+                likePostEntitiesByUserId.add(likePostEntity);
+            }
+        }
+        return new ResponseEntity<>(likePostEntitiesByUserId, HttpStatus.OK);
+    }
+
   @DeleteMapping("/{postId}")
   public ResponseEntity<LikePost> deleteLikePost(@PathVariable Integer postId,
       @RequestHeader("Authorization") String token) {
