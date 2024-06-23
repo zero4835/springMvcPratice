@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import {
   Collapse,
   Nav,
@@ -8,36 +8,34 @@ import {
   NavbarToggler,
   NavItem,
   NavLink,
-} from 'reactstrap';
-import LoginPopup from './user/LoginPopup';
+} from "reactstrap";
+import LoginPopup from "./user/LoginPopup";
 
 const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
-
   const navigate = useNavigate();
 
   const [collapse, setCollapse] = useState(true);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [token, setToken] = useState(localStorage.getItem('jwt_token'));
+  const [token, setToken] = useState(localStorage.getItem("jwt_token"));
   const [boards, setBoards] = useState([]);
   //const [islogin, setIslogin] = useState(false)
 
   const toggleNavbar = () => {
     setCollapse(!collapse);
-
   };
 
   const toggleBoard = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     setIsExpanded(!isExpanded);
   };
 
   const handleLogout = (e) => {
     setUser(null);
     setIslogin(false);
-    localStorage.removeItem('jwt_token');
-    localStorage.removeItem('user');
-    setToken(localStorage.getItem('jwt_token'));
-    navigate('/');
+    localStorage.removeItem("jwt_token");
+    localStorage.removeItem("user");
+    setToken(localStorage.getItem("jwt_token"));
+    navigate("/");
   };
 
   const fetchUserInfo = async () => {
@@ -45,46 +43,49 @@ const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
       const response = await fetch("/api/getIdbyToken", {
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+          "Content-Type": "application/json",
+        },
       });
       if (response.ok) {
         const userData = await response.json();
         const absolutePath = userData.imgUrl;
-        const filename = absolutePath.substring(absolutePath.lastIndexOf('/') + 1);
+        const filename = absolutePath.substring(
+          absolutePath.lastIndexOf("/") + 1
+        );
         const relativePath = `${filename}`;
         setUser((prevUser) => ({ ...prevUser, imgUrl: relativePath }));
-        localStorage.setItem('user', JSON.stringify({ ...userData, imgUrl: relativePath }));
-
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ ...userData, imgUrl: relativePath })
+        );
       } else {
         setUser(null);
       }
     } catch (error) {
-      console.error('Error fetching user information:', error);
+      console.error("Error fetching user information:", error);
       setUser(null);
     }
   };
 
   const fetchBoard = async () => {
     try {
-      const response = await fetch('/api/board/');
+      const response = await fetch("/api/board/");
       if (!response.ok) {
-        throw new Error('獲取主題失敗');
+        throw new Error("獲取主題失敗");
       }
       const boardList = await response.json();
       setBoards(boardList);
       console.log(boards);
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
   };
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('jwt_token');
+    const storedToken = localStorage.getItem("jwt_token");
     setToken(storedToken);
 
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
@@ -93,8 +94,7 @@ const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
     }
 
     fetchBoard();
-
-  }, [islogin, token/*, user*/]);
+  }, [islogin, token /*, user*/]);
 
   // useEffect(()=>{
   //     if (token === null || user === null) {
@@ -110,14 +110,26 @@ const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
     <Navbar className="p-1 indigo" dark>
       <NavbarBrand href="/" className="mt-auto">
         {/* src not not use ./ , should be use */}
-        <img alt="" src="/images/black-cat.png" width="45" height="45" className="" />
-        {' Meteor'}
+        <img
+          alt=""
+          src="/images/123.jpeg"
+          width="45"
+          height="45"
+          className=""
+        />
+        {" Meteor"}
       </NavbarBrand>
       <Nav className="ms-auto" navbar>
         {user && token !== null ? (
-          < NavItem className="d-flex flex-row">
+          <NavItem className="d-flex flex-row">
             <Link to="/post/newpost">
-              <img alt="" src="/images/penIcon.png" width="30" height="30"  className="mt-2 me-3"/>
+              <img
+                alt=""
+                src="/images/pencil.png"
+                width="30"
+                height="30"
+                className="mt-2 me-3"
+              />
             </Link>
             <Link to={`/user/${user.firstName}`}>
               {user && (
@@ -129,16 +141,35 @@ const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
                   src={`/images/${user.imgUrl}`}
                   alt="notfind 404"
                   style={{ borderRadius: "100%" }}
-                />)
-              }
+                />
+              )}
             </Link>
-            <NavLink tag={Link} to={`/user/${user.firstName}`} className="text-white mt-auto">{user.firstName}</NavLink>
-            <span className="text-white mt-auto mb-auto display-6 pt-auto">&nbsp;/&nbsp;</span>
-            <div className="text-white mt-auto mb-auto pt-1" type="Button" onClick={handleLogout}>logout</div>
+            <NavLink
+              tag={Link}
+              to={`/user/${user.firstName}`}
+              className="text-white mt-auto"
+            >
+              {user.firstName}
+            </NavLink>
+            <span className="text-white mt-auto mb-auto display-6 pt-auto">
+              &nbsp;/&nbsp;
+            </span>
+            <div
+              className="text-white mt-auto mb-auto pt-1"
+              type="Button"
+              onClick={handleLogout}
+            >
+              logout
+            </div>
           </NavItem>
         ) : (
           <NavItem>
-            <LoginPopup user={user} setUser={setUser} islogin={islogin} setIslogin={setIslogin} />
+            <LoginPopup
+              user={user}
+              setUser={setUser}
+              islogin={islogin}
+              setIslogin={setIslogin}
+            />
           </NavItem>
         )}
       </Nav>
@@ -153,13 +184,19 @@ const MyNavbar = ({ user, setUser, islogin, setIslogin }) => {
           </NavItem>
 
           <NavItem>
-            <NavLink href="" onClick={toggleBoard} >Boards</NavLink>
+            <NavLink href="" onClick={toggleBoard}>
+              Boards
+            </NavLink>
           </NavItem>
           <Collapse isOpen={isExpanded} navbar>
             {isExpanded && (
               <div>
-                {boards.map(board => (
-                  <NavLink key={board.id} href={`/board/${board.id}`} className="ms-3">
+                {boards.map((board) => (
+                  <NavLink
+                    key={board.id}
+                    href={`/board/${board.id}`}
+                    className="ms-3"
+                  >
                     <img
                       alt=""
                       src={board.iconUrl}
